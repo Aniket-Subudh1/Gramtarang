@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
-import { cookies } from "next/headers";
 import { listInquiries } from "@/lib/store";
-import { sessionCookie, verifySessionValue } from "@/lib/auth";
+import { hasSession } from "@/lib/session";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -28,8 +27,7 @@ const cell = (value: unknown) => {
 };
 
 export async function GET() {
-  const store = await cookies();
-  if (!(await verifySessionValue(store.get(sessionCookie.name)?.value))) {
+  if (!(await hasSession())) {
     return NextResponse.json({ error: "Sign in first." }, { status: 401 });
   }
 

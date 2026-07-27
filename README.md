@@ -1,6 +1,6 @@
 # Gram Tarang — website & inquiries console
 
-A rebuild of gramtarang.org.in in Next.js 15 (App Router, React 19, Tailwind v4,
+A rebuild of gramtarang.org.in in Next.js 16 (App Router, React 19, Tailwind v4,
 TypeScript), plus a staff console at `admin.gramtarang.org.in` where inquiries
 sent from the site arrive.
 
@@ -20,6 +20,54 @@ deployment — while it is up, the domain is being used to boost spam sites, whi
 costs you search reputation and puts visitors at risk.
 
 This rebuild contains none of that code.
+
+---
+
+## Security posture
+
+`npm audit` reports **0 vulnerabilities**. Keep it that way — run it before
+each deploy, and enable Dependabot or Renovate on the repo. Next.js ships
+security releases often; an unpatched version here is not academic, because
+this app holds people's names and phone numbers.
+
+**Authorization does not depend on `proxy.ts`.** Next.js has published repeated
+advisories for requests that skip the middleware/proxy layer entirely —
+CVE-2025-29927, then GHSA-267c-6grr-h53f and GHSA-26hh-7cqf-hhc6 for
+segment-prefetch routes. So the proxy is treated as an optimistic filter for
+routing and redirects, and the real check lives in `lib/session.ts`, invoked
+inside every protected page and route handler right next to the data it
+guards. If the proxy were bypassed completely, `/admin` would still redirect
+and every admin API would still return 401. There are regression probes for
+this; see below.
+
+**Version pins are exact** (`next`, `react`, `react-dom`, `typescript`) rather
+than caret ranges, so a deploy months from now builds what was tested.
+`overrides` forces patched `postcss` and `sharp` inside Next's own dependency
+tree.
+
+**The image optimiser is switched off** (`images.unoptimized`). The site ships
+no bitmap images, and disabling it removes a whole family of reported issues —
+optimiser DoS, cache confusion, unbounded cache growth, content injection —
+rather than patching around them. If you add photography later, re-enable it
+and list only the exact hostnames you serve from.
+
+**Other measures**: `X-Robots-Tag: noindex` on the console, `poweredByHeader`
+off, nosniff / frame-options / referrer-policy / permissions-policy on every
+response, HttpOnly + SameSite=Lax + Secure session cookie, HMAC-signed with a
+12-hour expiry, constant-time password comparison, and a deliberate delay on
+sign-in attempts.
+
+### Verifying the guard yourself
+
+With the server running, none of these should return inquiry data:
+
+```bash
+curl -i localhost:3000/admin                                     # 307
+curl -i -H 'x-middleware-subrequest: middleware' localhost:3000/admin   # 307
+curl -i -H 'RSC: 1' 'localhost:3000/admin?_rsc=abc'              # 307
+curl -i localhost:3000/api/inquiries                             # 401
+curl -i localhost:3000/api/admin/export                          # 401
+```
 
 ---
 
@@ -66,8 +114,8 @@ pool to manage.
 - `gramtarang.org.in`
 - `admin.gramtarang.org.in`
 
-`middleware.ts` folds any host starting with `admin.` onto the `/admin` route
-tree. Nothing else changes; a single deployment serves both.
+`proxy.ts` folds any host starting with `admin.` onto the `/admin` route tree.
+Nothing else changes; a single deployment serves both.
 
 **5. Point DNS** at Vercel as instructed on the Domains screen. The
 `admin` subdomain needs its own CNAME.
@@ -139,8 +187,9 @@ app/
 
 components/          header, footer, wordmark, scale-bar, reveal, ui, inquiry-form
                      admin/dashboard, admin/login-form
-lib/                 content.ts · nav.ts · store.ts · auth.ts
-middleware.ts        host routing + session gate
+lib/                 content.ts · nav.ts · store.ts
+                     auth.ts (crypto) · session.ts (authoritative guard)
+proxy.ts             host routing (optimistic filter only)
 public/fonts/        self-hosted woff2 (OFL licences included)
 ```
 
@@ -208,5 +257,9 @@ want a copy emailed on arrival, add a call to Resend or Postmark inside
 `app/api/inquiries/route.ts` after `saveInquiry`.
 
 **Per-person logins.** The console uses one shared password. If you later need
-individual accounts and an audit trail, `lib/auth.ts` is the only file that
-reads the session — swap it for an auth provider and nothing else changes.
+individual accounts and an audit trail, `lib/auth.ts` and `lib/session.ts` are
+the only files that read the session — swap them for an auth provider and
+nothing else changes.
+
+**Keep dependencies current.** This was pinned to a patched Next.js on the day
+it was built. Turn on automated dependency updates; do not let it drift.

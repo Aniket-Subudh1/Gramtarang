@@ -49,12 +49,13 @@ const legacyRedirects: { from: string; to: string }[] = [
 const nextConfig: NextConfig = {
   poweredByHeader: false,
 
-  images: {
-    remotePatterns: [
-      // Legacy asset host. Remove once images are served from /public.
-      { protocol: "https", hostname: "gramtarang.org.in" },
-    ],
-  },
+  // The site is typographic and ships no bitmap images, so the image
+  // optimiser is switched off entirely. That removes a whole class of
+  // reported issues (optimiser DoS, cache confusion, unbounded cache
+  // growth, content injection) rather than patching around them. If you
+  // later add photography, turn this back on and list only the exact
+  // hostnames you serve from.
+  images: { unoptimized: true },
 
   async redirects() {
     return [
@@ -86,6 +87,11 @@ const nextConfig: NextConfig = {
             value: "camera=(), microphone=(), geolocation=(), interest-cohort=()",
           },
         ],
+      },
+      {
+        // The console must never be indexed, whichever host serves it.
+        source: "/admin/:path*",
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
       },
       {
         source: "/fonts/(.*)",

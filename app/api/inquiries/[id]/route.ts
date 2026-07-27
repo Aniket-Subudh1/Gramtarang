@@ -1,15 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { cookies } from "next/headers";
 import { deleteInquiry, InquiryStatus, updateInquiry } from "@/lib/store";
-import { sessionCookie, verifySessionValue } from "@/lib/auth";
+import { hasSession } from "@/lib/session";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
-
-async function authorised() {
-  const store = await cookies();
-  return verifySessionValue(store.get(sessionCookie.name)?.value);
-}
 
 const STATUSES: InquiryStatus[] = ["new", "open", "closed"];
 
@@ -17,7 +11,7 @@ export async function PATCH(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ) {
-  if (!(await authorised()))
+  if (!(await hasSession()))
     return NextResponse.json({ error: "Sign in first." }, { status: 401 });
 
   const { id } = await params;
@@ -42,7 +36,7 @@ export async function DELETE(
   _req: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ) {
-  if (!(await authorised()))
+  if (!(await hasSession()))
     return NextResponse.json({ error: "Sign in first." }, { status: 401 });
 
   const { id } = await params;

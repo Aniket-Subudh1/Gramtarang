@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import { cookies } from "next/headers";
 import {
   Inquiry,
   listInquiries,
@@ -7,7 +6,7 @@ import {
   saveInquiry,
   tooManyRequests,
 } from "@/lib/store";
-import { sessionCookie, verifySessionValue } from "@/lib/auth";
+import { hasSession } from "@/lib/session";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -84,9 +83,8 @@ export async function POST(req: NextRequest) {
 }
 
 export async function GET() {
-  const store = await cookies();
-  const ok = await verifySessionValue(store.get(sessionCookie.name)?.value);
-  if (!ok) return NextResponse.json({ error: "Sign in first." }, { status: 401 });
+  if (!(await hasSession()))
+    return NextResponse.json({ error: "Sign in first." }, { status: 401 });
 
   return NextResponse.json({ inquiries: await listInquiries() });
 }
