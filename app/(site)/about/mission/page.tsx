@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Reveal } from "@/components/reveal";
 import { PageHeader, Section, SectionHead } from "@/components/ui";
 import { sixDimensions } from "@/lib/content";
-import { home, sixDimensionsDiagram } from "@/lib/assets";
+import { bhanu, methodDiagrams } from "@/lib/assets";
 import { Photo } from "@/components/media";
 
 export const metadata: Metadata = {
@@ -69,7 +69,7 @@ export default function MissionPage() {
       <Section tone="chalk">
         <SectionHead eyebrow="Our values" title="Four things we do not trade away." />
         <Photo
-          img={home.training}
+          img={bhanu}
           sizes="100vw"
           className="mt-10 h-[220px] w-full md:h-[340px]"
         />
@@ -92,7 +92,7 @@ export default function MissionPage() {
           lede="A trade certificate on its own does not hold a job. These six are assessed together, because employers hire and keep people on all of them."
         />
         <Photo
-          img={sixDimensionsDiagram}
+          img={methodDiagrams.sixDimensions}
           sizes="(max-width: 1280px) 100vw, 1100px"
           className="mx-auto mt-12 w-full max-w-4xl border border-line bg-white"
         />

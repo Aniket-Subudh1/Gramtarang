@@ -108,9 +108,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="en-IN"
       className={`${archivo.variable} ${sourceSerif.variable} ${plexMono.variable}`}
-      suppressHydrationWarning
     >
-      <body suppressHydrationWarning>
+      <body>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

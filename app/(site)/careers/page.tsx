@@ -3,7 +3,7 @@ import { Reveal } from "@/components/reveal";
 import { PageHeader, Section, SectionHead } from "@/components/ui";
 import { InquiryForm } from "@/components/inquiry-form";
 import { careers, centreGroups } from "@/lib/content";
-import { home } from "@/lib/assets";
+import { facilityImages } from "@/lib/assets";
 import { Photo } from "@/components/media";
 
 export const metadata: Metadata = {
@@ -22,7 +22,7 @@ export default function CareersPage() {
       <PageHeader eyebrow="Careers" title="Work at Gram Tarang" lede={careers.intro} />
 
       <Photo
-        img={home.classroom}
+        img={facilityImages.trainingFloor}
         priority
         sizes="100vw"
         className="h-[220px] w-full md:h-[360px]"

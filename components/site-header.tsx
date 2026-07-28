@@ -1,11 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { primaryNav } from "@/lib/nav";
 import { org } from "@/lib/content";
+import { Wordmark } from "./wordmark";
 
 export function SiteHeader() {
   const pathname = usePathname();
@@ -50,14 +50,7 @@ export function SiteHeader() {
 
       <div className="shell flex h-[4.5rem] items-center justify-between gap-6">
         <Link href="/" className="shrink-0" aria-label={`${org.shortName} home`}>
-          <Image
-            src="/gtet-logo.png"
-            alt={org.shortName}
-            width={382}
-            height={304}
-            priority
-            className="h-12 w-auto sm:h-14"
-          />
+          <Wordmark />
         </Link>
 
         <nav className="hidden items-center gap-1 lg:flex" aria-label="Main">

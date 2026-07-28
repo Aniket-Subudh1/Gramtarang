@@ -24,7 +24,7 @@ export default function AwardsPage() {
         <ol className="divide-y divide-[--color-line] border-y border-line">
           {awards.map((award, i) => (
             <Reveal as="li" key={award.title} delay={i * 50}>
-              <article className="grid gap-6 py-8 md:grid-cols-[8rem_1fr_16rem] md:gap-10">
+              <article className="grid gap-4 py-8 md:grid-cols-[8rem_1fr] md:gap-10">
                 <p className="font-mono text-[0.85rem] font-medium tracking-wide text-madder">
                   {award.year}
                 </p>
@@ -36,18 +36,20 @@ export default function AwardsPage() {
                     {award.body}
                   </p>
                 </div>
-                {awardImages[i] && (
-                  <Photo
-                    img={awardImages[i]}
-                    ratio="3/2"
-                    sizes="(max-width: 768px) 100vw, 256px"
-                    className="w-full border border-line"
-                  />
-                )}
               </article>
             </Reveal>
           ))}
         </ol>
+      </Section>
+
+      <Section tone="white" className="!pt-0">
+        <ul className="grid gap-px border border-line bg-line md:grid-cols-3">
+          {[awardImages.nsdc, awardImages.ficci, awardImages.naac].map((img) => (
+            <li key={img.src} className="bg-white p-5">
+              <Photo img={img} ratio="3/2" sizes="(max-width: 768px) 100vw, 33vw" className="w-full" />
+            </li>
+          ))}
+        </ul>
       </Section>
 
       <Section tone="chalk">

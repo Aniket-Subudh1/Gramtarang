@@ -154,38 +154,43 @@ phone, and length caps on every field.
 
 ## Images
 
-All photography, logos, award certificates and the WEL catalogue come from the
-original WordPress media library. Before anything was used it was scanned:
-every file's magic bytes were checked against its extension, and all 200 files
-were grepped for embedded PHP, `eval(`, `base64_decode`, `gzinflate` and
-`<script` payloads. Nothing was found — the infection was in the WordPress
-install, not the uploads.
+All photography, logos and diagrams come from the WordPress media library.
+Before anything was used it was scanned: every file's magic bytes were checked
+against its extension, and all 200 files grepped for embedded PHP, `eval(`,
+`base64_decode`, `gzinflate` and `<script`. Nothing was found — the infection
+was in the WordPress install, not the uploads.
 
-`scripts/build-assets.sh` converts the export into web-ready assets: cropped to
-purpose, emitted at 2x display size, converted to WebP, logos trimmed of
-whitespace and scaled to a common height. **33 MB of source became 2.1 MB of
-images.** Re-run it against a fresh export if the library changes; it needs
-ImageMagick.
+**Every image is placed where gramtarang.org.in actually uses it.** The mapping
+was taken from the live pages, not inferred from filenames, which matters
+because the filenames mislead:
 
-Every image is registered in **`lib/assets.ts`** with its dimensions and alt
-text. Dimensions are recorded so the layout reserves space and nothing shifts
-as photographs load; swapping a photograph means changing one line there.
+| File | Looks like | Actually used for |
+|---|---|---|
+| `award*.png` | Award certificates | Ministerial visit photos (gallery) — not used |
+| `Picture1/2/3` | Nothing obvious | **The awards page** |
+| `c1`–`c6.jpg` | Centres | **Named CCD trainee portraits** |
+| `peda-*.jpg` | Pedagogy steps | **Production output** on the trainers page |
+| `Six_Dimensions.jpg` | The methodology wheel | Superseded — `gtet.jpg` is the one in use |
+| `GTET-logo-330` | Header logo | `2017/04/logo.png` is the header logo |
+| `Banner-2/3/4.jpg` | Generic banners | Ashok Leyland / Sewing Operator / CNC slides |
+| `Banu-SMO.jpg` | Generic banner | Bhanu, Khorda → Shahi Exports, Bangalore |
 
-The image optimiser stays off (`images.unoptimized`) because the assets are
-already generated at exact display sizes in WebP — the optimiser would add
-little beyond a security surface. `next/image` is still used, for lazy loading
-and the reserved aspect box.
+`scripts/build-assets.sh` regenerates everything from a fresh export; each line
+carries the source page it was verified against. **33 MB of source became
+2.1 MB of WebP.** Every image is registered in **`lib/assets.ts`** with its
+dimensions and alt text, so the layout reserves space and nothing shifts as
+photographs load. Swapping one means changing one line.
 
-### Two honest gaps
+The image optimiser stays off (`images.unoptimized`) because assets are already
+generated at exact display sizes in WebP. `next/image` is still used, for lazy
+loading and the reserved aspect box.
 
-- **Three of the six success stories have no portrait.** Gurudev Hansdah,
-  Pushpanjali Mallick and Ajit Mandal were not in the media library. Those
-  cards render an initials monogram rather than borrow a stranger's face.
-  Drop a photo into `public/images/stories/` and add a line to
-  `storyPortraits` when you have one.
-- **The healthcare and retail sector photographs are generic training shots.**
-  The library had no sector-specific image for either. They read fine, but
-  swap them for real ones when you can — one line each in `sectorImages`.
+### Content corrected alongside the images
+
+The success stories page has **nine** people, not the six I first transcribed.
+Sagar Naik, Pritisudha Panda and Sk Nakir were missing, and Hadibandhu
+Badaseth's salary figures were wrong. All nine now carry their own photograph
+from the source page.
 
 ---
 

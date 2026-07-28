@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Reveal } from "@/components/reveal";
 import { ButtonLink, Note, PageHeader, Section, SectionHead } from "@/components/ui";
 import { careerPathing, methodPhases, sectors, sixDimensions } from "@/lib/content";
-import { methodImages, sectorImages, sixDimensionsDiagram } from "@/lib/assets";
+import { methodDiagrams, pedagogyProduction, sectorImages } from "@/lib/assets";
 import { Photo } from "@/components/media";
 
 export const metadata: Metadata = {
@@ -26,7 +26,12 @@ export default function SkillTrainingPage() {
           eyebrow="Methodology"
           title="Three phases of learning."
         />
-        <ol className="mt-12 space-y-14">
+        <Photo
+          img={methodDiagrams.threePhases}
+          sizes="(max-width: 1024px) 100vw, 620px"
+          className="mx-auto mt-12 w-full max-w-xl bg-white"
+        />
+        <ol className="mt-14 space-y-14">
           {methodPhases.map((phase) => (
             <li key={phase.phase}>
               <div className="flex flex-wrap items-baseline gap-3 border-b border-ink/25 pb-3">
@@ -38,14 +43,6 @@ export default function SkillTrainingPage() {
               <ul className="mt-7 grid gap-8 md:grid-cols-2 xl:grid-cols-3">
                 {phase.steps.map((step, i) => (
                   <Reveal as="li" key={step.n} delay={i * 60}>
-                    {methodImages[step.title] && (
-                      <Photo
-                        img={methodImages[step.title]}
-                        ratio="3/2"
-                        sizes="(max-width: 768px) 100vw, 33vw"
-                        className="mb-5 w-full"
-                      />
-                    )}
                     <span className="font-mono text-[0.72rem] tracking-[0.14em] text-mist">
                       Step {String(step.n).padStart(2, "0")}
                     </span>
@@ -70,9 +67,9 @@ export default function SkillTrainingPage() {
           lede="Employers do not lose people because they cannot run the machine. They lose them because of everything else. So everything else is taught and measured too."
         />
         <Photo
-          img={sixDimensionsDiagram}
-          sizes="(max-width: 1280px) 100vw, 1100px"
-          className="mx-auto mt-12 w-full max-w-4xl border border-line bg-white"
+          img={methodDiagrams.sixDimensions}
+          sizes="(max-width: 1024px) 100vw, 760px"
+          className="mx-auto mt-12 w-full max-w-2xl bg-white"
         />
         <ol className="mt-12 grid gap-px border border-line bg-line md:grid-cols-2 xl:grid-cols-3">
           {sixDimensions.map((dim) => (
@@ -89,10 +86,30 @@ export default function SkillTrainingPage() {
         </ol>
       </Section>
 
+      <Section tone="white" className="!pb-0">
+        <SectionHead
+          eyebrow="Production"
+          title="Every programme ends with something real."
+          lede="Welding, fabrication, machining, a garment, a cup of coffee. What trainees make has a buyer, a tolerance and a deadline."
+        />
+        <ul className="mt-12 grid grid-cols-2 gap-px border border-line bg-line md:grid-cols-4">
+          {pedagogyProduction.map((img) => (
+            <li key={img.src}>
+              <Photo img={img} ratio="3/2" sizes="(max-width: 768px) 50vw, 25vw" className="w-full" />
+            </li>
+          ))}
+        </ul>
+      </Section>
+
       <Section tone="white">
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
           <div>
             <SectionHead eyebrow="Pathway" title={careerPathing.heading} />
+            <Photo
+              img={methodDiagrams.workIntegrated}
+              sizes="(max-width: 1024px) 100vw, 46vw"
+              className="mt-8 w-full bg-white"
+            />
             {careerPathing.body.map((para) => (
               <p key={para.slice(0, 20)} className="mt-6 text-lg leading-relaxed text-slate">
                 {para}

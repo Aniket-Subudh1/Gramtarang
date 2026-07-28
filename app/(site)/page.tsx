@@ -26,7 +26,8 @@ import {
 } from "@/lib/content";
 import {
   ecosystemLogos,
-  home,
+  facilityImages,
+  heroPrimary,
   partnerLogos,
   sectorImages,
   storyPortraits,
@@ -122,7 +123,7 @@ export default function HomePage() {
         {/* full-bleed photograph of the thing itself */}
         <div className="relative">
           <Photo
-            img={home.hero}
+            img={heroPrimary}
             priority
             sizes="100vw"
             className="h-[300px] w-full md:h-[440px]"
@@ -199,7 +200,7 @@ export default function HomePage() {
               lede="The sequence matters. Nobody touches a production machine before they have watched the job done, and nobody is certified by us alone."
             />
             <Photo
-              img={home.training}
+              img={facilityImages.trainingFloor}
               ratio="4/3"
               sizes="(max-width: 1024px) 100vw, 40vw"
               className="mt-9 w-full"

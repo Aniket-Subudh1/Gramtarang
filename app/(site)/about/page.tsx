@@ -9,7 +9,7 @@ import {
   StatGrid,
 } from "@/components/ui";
 import { ecosystem, impactDetail, org, stats } from "@/lib/content";
-import { ecosystemLogos, home } from "@/lib/assets";
+import { ecosystemLogos, heroPrimary } from "@/lib/assets";
 import { Logo, Photo } from "@/components/media";
 
 export const metadata: Metadata = {
@@ -28,7 +28,7 @@ export default function AboutPage() {
       />
 
       <Photo
-        img={home.classroom}
+        img={heroPrimary}
         priority
         sizes="100vw"
         className="h-[240px] w-full md:h-[420px]"
