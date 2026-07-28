@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Reveal } from "@/components/reveal";
 import { ButtonLink, PageHeader, Section, SectionHead } from "@/components/ui";
 import { governmentPartners, industryPartners, partnerNote } from "@/lib/content";
+import { partnerLogos } from "@/lib/assets";
+import { Logo } from "@/components/media";
 
 export const metadata: Metadata = {
   title: "Our partners",
@@ -31,9 +33,12 @@ function PartnerList({
             as="li"
             key={partner.slug}
             delay={i * 35}
-            className="flex min-h-[6.5rem] items-center bg-white px-7 py-6"
+            className="flex min-h-[9.5rem] flex-col items-center justify-center gap-4 bg-white px-7 py-8 text-center"
           >
-            <span className="font-display text-lg font-semibold tracking-tight">
+            {partnerLogos[partner.slug] && (
+              <Logo img={partnerLogos[partner.slug]} height={46} />
+            )}
+            <span className="font-display text-[0.95rem] font-semibold tracking-tight">
               {partner.name}
             </span>
           </Reveal>

@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { ScaleBar } from "@/components/scale-bar";
 import { Reveal } from "@/components/reveal";
+import { Photo, Logo } from "@/components/media";
 import {
   ButtonLink,
   Card,
-  Marquee,
+  LogoMarquee,
   Section,
   SectionHead,
   StatGrid,
@@ -23,13 +24,26 @@ import {
   stories,
   workforceSolutions,
 } from "@/lib/content";
+import {
+  ecosystemLogos,
+  home,
+  partnerLogos,
+  sectorImages,
+  storyPortraits,
+  workforceImages,
+} from "@/lib/assets";
+
+const govLogos = governmentPartners
+  .map((p) => partnerLogos[p.slug])
+  .filter(Boolean);
+const indLogos = industryPartners.map((p) => partnerLogos[p.slug]).filter(Boolean);
 
 export default function HomePage() {
   return (
     <>
       {/* ------------------------------ hero ------------------------ */}
       <section className="border-b border-line bg-white">
-        <div className="shell pb-10 pt-16 md:pb-14 md:pt-24">
+        <div className="shell pb-12 pt-16 md:pt-24">
           <div className="grid gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16">
             <div>
               <p className="eyebrow text-madder">{hero.eyebrow}</p>
@@ -105,8 +119,22 @@ export default function HomePage() {
           </div>
         </div>
 
+        {/* full-bleed photograph of the thing itself */}
+        <div className="relative">
+          <Photo
+            img={home.hero}
+            priority
+            sizes="100vw"
+            className="h-[300px] w-full md:h-[440px]"
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 bg-gradient-to-t from-indigo-900/45 via-indigo-900/10 to-transparent"
+          />
+        </div>
+
         {/* ---------------------- the measure (signature) ----------- */}
-        <div className="shell pb-14">
+        <div className="shell py-12">
           <ScaleBar />
         </div>
       </section>
@@ -121,7 +149,7 @@ export default function HomePage() {
         <SectionHead
           eyebrow="What we teach"
           title="Six sectors, one standard."
-          lede="Every trade is aligned to a national occupational standard and assessed by an independent body — a sector skill council, NCVT, or Centurion University."
+          lede="Every trade is aligned to a national occupational standard, taught on the equipment the job actually uses, and assessed by an independent body — a sector skill council, NCVT, or Centurion University."
         />
 
         <ul className="mt-14 grid gap-px border border-line bg-line md:grid-cols-2 xl:grid-cols-3">
@@ -129,22 +157,32 @@ export default function HomePage() {
             <Reveal as="li" key={sector.slug} delay={i * 60} className="bg-white">
               <Link
                 href={`/sectors/${sector.slug}`}
-                className="group flex h-full flex-col p-7 transition-colors hover:bg-indigo-50 md:p-8"
+                className="group flex h-full flex-col transition-colors hover:bg-indigo-50"
               >
-                <p className="eyebrow text-madder">{sector.code}</p>
-                <h3 className="mt-4 text-2xl font-bold">{sector.name}</h3>
-                <p className="mt-3 flex-1 text-[0.95rem] leading-relaxed text-slate">
-                  {sector.blurb}
-                </p>
-                <p className="mt-6 font-mono text-[0.7rem] uppercase tracking-[0.12em] text-mist">
-                  {sector.trades.length} trades
-                </p>
-                <p className="mt-2 font-display text-[0.88rem] font-semibold text-indigo-700">
-                  <span className="underline-offset-4 group-hover:underline">
-                    See the trades
-                  </span>{" "}
-                  <span aria-hidden>→</span>
-                </p>
+                {sectorImages[sector.slug] && (
+                  <Photo
+                    img={sectorImages[sector.slug]}
+                    ratio="16/10"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                    className="w-full"
+                  />
+                )}
+                <span className="flex flex-1 flex-col p-7 md:p-8">
+                  <span className="eyebrow text-madder">{sector.code}</span>
+                  <h3 className="mt-3 text-2xl font-bold">{sector.name}</h3>
+                  <span className="mt-3 block flex-1 text-[0.95rem] leading-relaxed text-slate">
+                    {sector.blurb}
+                  </span>
+                  <span className="mt-6 block font-mono text-[0.7rem] uppercase tracking-[0.12em] text-mist">
+                    {sector.trades.length} trades
+                  </span>
+                  <span className="mt-2 block font-display text-[0.88rem] font-semibold text-indigo-700">
+                    <span className="underline-offset-4 group-hover:underline">
+                      See the trades
+                    </span>{" "}
+                    <span aria-hidden>→</span>
+                  </span>
+                </span>
               </Link>
             </Reveal>
           ))}
@@ -153,12 +191,18 @@ export default function HomePage() {
 
       {/* ------------------------------ method --------------------- */}
       <Section tone="chalk">
-        <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+        <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
           <div className="lg:sticky lg:top-28 lg:self-start">
             <SectionHead
               eyebrow="How we teach"
               title="Six steps, in order."
               lede="The sequence matters. Nobody touches a production machine before they have watched the job done, and nobody is certified by us alone."
+            />
+            <Photo
+              img={home.training}
+              ratio="4/3"
+              sizes="(max-width: 1024px) 100vw, 40vw"
+              className="mt-9 w-full"
             />
             <div className="mt-8">
               <ButtonLink href="/services/skill-training" variant="outline">
@@ -212,8 +256,13 @@ export default function HomePage() {
         <div className="mt-14 grid gap-px border border-indigo-700 bg-indigo-700 lg:grid-cols-3">
           {ecosystem.map((part, i) => (
             <Reveal key={part.name} delay={i * 80} className="bg-indigo-900 p-8">
+              {ecosystemLogos[part.name] && (
+                <span className="mb-6 inline-flex items-center justify-center bg-white px-4 py-3">
+                  <Logo img={ecosystemLogos[part.name]} height={38} />
+                </span>
+              )}
               <p className="eyebrow text-turmeric">{part.role}</p>
-              <h3 className="mt-4 text-xl font-bold text-white">{part.name}</h3>
+              <h3 className="mt-3 text-xl font-bold text-white">{part.name}</h3>
               <ul className="mt-5 space-y-3">
                 {part.points.map((point) => (
                   <li
@@ -232,10 +281,7 @@ export default function HomePage() {
 
       {/* ------------------------------ services ------------------- */}
       <Section tone="white">
-        <SectionHead
-          eyebrow="What we do"
-          title="Four ways to work with us."
-        />
+        <SectionHead eyebrow="What we do" title="Four ways to work with us." />
         <div className="mt-12 grid gap-6 md:grid-cols-2">
           {services.map((service, i) => (
             <Reveal key={service.slug} delay={i * 60}>
@@ -264,6 +310,12 @@ export default function HomePage() {
               eyebrow="For employers"
               title="Hire people we already trained."
               lede={workforceSolutions.intro}
+            />
+            <Photo
+              img={workforceImages.recruitment}
+              ratio="16/9"
+              sizes="(max-width: 1024px) 100vw, 45vw"
+              className="mt-9 w-full"
             />
             <div className="mt-8">
               <ButtonLink href="/services/workforce-solutions">
@@ -294,8 +346,8 @@ export default function HomePage() {
           align="center"
         />
         <div className="mt-12 space-y-4">
-          <Marquee items={governmentPartners.map((p) => p.name)} />
-          <Marquee items={industryPartners.map((p) => p.name)} />
+          <LogoMarquee items={govLogos} />
+          <LogoMarquee items={indLogos} />
         </div>
         <div className="mt-10 text-center">
           <ButtonLink href="/partners" variant="outline">
@@ -311,23 +363,49 @@ export default function HomePage() {
           title="One person at a time, which is the only way it works."
         />
         <ul className="mt-14 grid gap-px border border-line bg-line md:grid-cols-3">
-          {stories.slice(0, 3).map((story, i) => (
-            <Reveal as="li" key={story.name} delay={i * 70} className="bg-white p-8">
-              <p className="eyebrow text-madder">{story.trade}</p>
-              <blockquote className="mt-5 font-body text-xl italic leading-snug text-ink">
-                “{story.quote}”
-              </blockquote>
-              <p className="mt-5 text-[0.92rem] leading-relaxed text-slate">
-                {story.body.split(". ").slice(0, 2).join(". ")}.
-              </p>
-              <footer className="mt-6 border-t border-line pt-4">
-                <p className="font-display text-[0.95rem] font-semibold">{story.name}</p>
-                <p className="font-mono text-[0.7rem] uppercase tracking-[0.12em] text-mist">
-                  {story.from}
+          {stories.slice(0, 3).map((story, i) => {
+            const portrait = storyPortraits[story.name];
+            return (
+              <Reveal as="li" key={story.name} delay={i * 70} className="bg-white p-8">
+                <p className="eyebrow text-madder">{story.trade}</p>
+                <blockquote className="mt-5 font-body text-xl italic leading-snug text-ink">
+                  “{story.quote}”
+                </blockquote>
+                <p className="mt-5 text-[0.92rem] leading-relaxed text-slate">
+                  {story.body.split(". ").slice(0, 2).join(". ")}.
                 </p>
-              </footer>
-            </Reveal>
-          ))}
+                <footer className="mt-6 flex items-center gap-4 border-t border-line pt-4">
+                  {portrait ? (
+                    <Photo
+                      img={portrait}
+                      ratio="1/1"
+                      sizes="56px"
+                      className="h-14 w-14 shrink-0 rounded-full"
+                    />
+                  ) : (
+                    <span
+                      aria-hidden
+                      className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-indigo-50 font-display text-[0.95rem] font-bold text-indigo-700"
+                    >
+                      {story.name
+                        .split(" ")
+                        .map((w) => w[0])
+                        .slice(0, 2)
+                        .join("")}
+                    </span>
+                  )}
+                  <span>
+                    <span className="block font-display text-[0.95rem] font-semibold">
+                      {story.name}
+                    </span>
+                    <span className="block font-mono text-[0.7rem] uppercase tracking-[0.12em] text-mist">
+                      {story.from}
+                    </span>
+                  </span>
+                </footer>
+              </Reveal>
+            );
+          })}
         </ul>
         <div className="mt-10">
           <ButtonLink href="/recognition/success-stories" variant="outline">

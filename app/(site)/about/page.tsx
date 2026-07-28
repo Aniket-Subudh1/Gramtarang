@@ -9,6 +9,8 @@ import {
   StatGrid,
 } from "@/components/ui";
 import { ecosystem, impactDetail, org, stats } from "@/lib/content";
+import { ecosystemLogos, home } from "@/lib/assets";
+import { Logo, Photo } from "@/components/media";
 
 export const metadata: Metadata = {
   title: "At a glance",
@@ -25,6 +27,13 @@ export default function AboutPage() {
         lede={org.about}
       />
 
+      <Photo
+        img={home.classroom}
+        priority
+        sizes="100vw"
+        className="h-[240px] w-full md:h-[420px]"
+      />
+
       <Section tone="chalk" className="!py-16">
         <StatGrid items={stats} />
       </Section>
@@ -39,6 +48,11 @@ export default function AboutPage() {
           {ecosystem.map((part, i) => (
             <Reveal key={part.name} delay={i * 70}>
               <Card className="h-full">
+                {ecosystemLogos[part.name] && (
+                  <span className="mb-6 flex h-14 items-center">
+                    <Logo img={ecosystemLogos[part.name]} height={44} />
+                  </span>
+                )}
                 <p className="eyebrow text-madder">{part.role}</p>
                 <h3 className="mt-4 text-xl font-bold">{part.name}</h3>
                 <ul className="mt-5 space-y-3">

@@ -76,6 +76,10 @@ export const metadata: Metadata = {
     locale: "en_IN",
   },
   robots: { index: true, follow: true },
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/apple-icon.png",
+  },
 };
 
 const jsonLd = {
@@ -96,6 +100,7 @@ const jsonLd = {
   },
   telephone: org.phoneHref,
   email: org.email,
+  logo: `${siteUrl}/images/logo-mark.png`,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

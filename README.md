@@ -45,11 +45,11 @@ than caret ranges, so a deploy months from now builds what was tested.
 `overrides` forces patched `postcss` and `sharp` inside Next's own dependency
 tree.
 
-**The image optimiser is switched off** (`images.unoptimized`). The site ships
-no bitmap images, and disabling it removes a whole family of reported issues —
-optimiser DoS, cache confusion, unbounded cache growth, content injection —
-rather than patching around them. If you add photography later, re-enable it
-and list only the exact hostnames you serve from.
+**The image optimiser is switched off** (`images.unoptimized`). Every image is
+local and pre-generated at its exact display size, so the optimiser would buy
+almost nothing — and leaving it off removes a whole family of reported issues:
+optimiser DoS, cache confusion, unbounded cache growth, content injection. No
+remote image hosts are allowed, so nothing can be proxied through the app.
 
 **Other measures**: `X-Robots-Tag: noindex` on the console, `poweredByHeader`
 off, nosniff / frame-options / referrer-policy / permissions-policy on every
@@ -152,6 +152,43 @@ phone, and length caps on every field.
 
 ---
 
+## Images
+
+All photography, logos, award certificates and the WEL catalogue come from the
+original WordPress media library. Before anything was used it was scanned:
+every file's magic bytes were checked against its extension, and all 200 files
+were grepped for embedded PHP, `eval(`, `base64_decode`, `gzinflate` and
+`<script` payloads. Nothing was found — the infection was in the WordPress
+install, not the uploads.
+
+`scripts/build-assets.sh` converts the export into web-ready assets: cropped to
+purpose, emitted at 2x display size, converted to WebP, logos trimmed of
+whitespace and scaled to a common height. **33 MB of source became 2.1 MB of
+images.** Re-run it against a fresh export if the library changes; it needs
+ImageMagick.
+
+Every image is registered in **`lib/assets.ts`** with its dimensions and alt
+text. Dimensions are recorded so the layout reserves space and nothing shifts
+as photographs load; swapping a photograph means changing one line there.
+
+The image optimiser stays off (`images.unoptimized`) because the assets are
+already generated at exact display sizes in WebP — the optimiser would add
+little beyond a security surface. `next/image` is still used, for lazy loading
+and the reserved aspect box.
+
+### Two honest gaps
+
+- **Three of the six success stories have no portrait.** Gurudev Hansdah,
+  Pushpanjali Mallick and Ajit Mandal were not in the media library. Those
+  cards render an initials monogram rather than borrow a stranger's face.
+  Drop a photo into `public/images/stories/` and add a line to
+  `storyPortraits` when you have one.
+- **The healthcare and retail sector photographs are generic training shots.**
+  The library had no sector-specific image for either. They read fine, but
+  swap them for real ones when you can — one line each in `sectorImages`.
+
+---
+
 ## Editing content
 
 Nearly all copy lives in **`lib/content.ts`** as typed data — the org
@@ -190,12 +227,21 @@ components/          header, footer, wordmark, scale-bar, reveal, ui, inquiry-fo
 lib/                 content.ts · nav.ts · store.ts
                      auth.ts (crypto) · session.ts (authoritative guard)
 proxy.ts             host routing (optimistic filter only)
-public/fonts/        self-hosted woff2 (OFL licences included)
+public/
+  fonts/             self-hosted woff2 (OFL licences included)
+  images/            photography, portraits, logos, diagrams (WebP)
+  docs/              WEL catalogue PDF
+scripts/
+  build-assets.sh    regenerates public/images from a media-library export
 ```
 
 ---
 
 ## Design notes
+
+**Photography is documentary, not decorative** — real workshop floors, real
+trainees at real machines. The palette below was chosen partly because it sits
+under these photographs without fighting them.
 
 **Palette** is drawn from Odisha ikat dyeing — indigo ground `#14204a`, madder
 `#b23a2b`, turmeric `#e5a83c` — rather than generic institutional blue. The
@@ -236,12 +282,6 @@ and so on. Existing search rankings and inbound links survive the move.
 ---
 
 ## Things left for you
-
-**Images.** The rebuild is typographic and uses no photography. The original
-site's images are still on the old host; `next.config.ts` allows that hostname
-so you can reference them, but download the ones worth keeping into `public/`
-before decommissioning WordPress. Photographs of actual workshops and trainees
-would strengthen the sector pages considerably.
 
 **Two data corrections carried over from the old site**, which I have left as
 they were rather than guess:

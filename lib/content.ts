@@ -23,8 +23,7 @@ export const org = {
     line3: "Khordha, Odisha 752050, India",
   },
   feePaymentUrl: "http://m.p-y.tm/gtets_web",
-  wellCatalogueUrl:
-    "https://gramtarang.org.in/wp-content/uploads/2021/08/WELL-Catalogue-LR.pdf",
+  wellCatalogueUrl: "/docs/well-catalogue.pdf",
   incubatorUrl: "http://gramtarang.in/incubator.html",
   wistaUrl: "http://gramtarang.in/index.html",
 };

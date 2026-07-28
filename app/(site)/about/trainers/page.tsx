@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Reveal } from "@/components/reveal";
 import { ButtonLink, Note, PageHeader, Section, SectionHead } from "@/components/ui";
 import { careerPathing, methodPhases } from "@/lib/content";
+import { methodImages, sixDimensionsDiagram } from "@/lib/assets";
+import { Photo } from "@/components/media";
 
 export const metadata: Metadata = {
   title: "Trainers & pedagogy",
@@ -55,6 +57,14 @@ export default function TrainersPage() {
               <ul className="mt-6 grid gap-8 md:grid-cols-2 xl:grid-cols-3">
                 {phase.steps.map((step, i) => (
                   <Reveal as="li" key={step.n} delay={i * 60}>
+                    {methodImages[step.title] && (
+                      <Photo
+                        img={methodImages[step.title]}
+                        ratio="3/2"
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                        className="mb-4 w-full"
+                      />
+                    )}
                     <span className="font-mono text-[0.72rem] tracking-[0.14em] text-mist">
                       Step {String(step.n).padStart(2, "0")}
                     </span>

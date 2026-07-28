@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Reveal } from "@/components/reveal";
 import { ButtonLink, PageHeader, Section, SectionHead } from "@/components/ui";
 import { centreGroups } from "@/lib/content";
+import { centreImages } from "@/lib/assets";
+import { Photo } from "@/components/media";
 
 export const metadata: Metadata = {
   title: "Our centres",
@@ -27,7 +29,20 @@ export default function CentresPage() {
           lede="Mobilisation happens through gram panchayats, self-help groups and NGOs, so a centre has to be in reach of the villages it recruits from. Future coverage extends into Jharkhand, Chhattisgarh, Bihar and Meghalaya."
         />
 
-        <div className="mt-14 space-y-16">
+        <ul className="mt-14 grid grid-cols-2 gap-px border border-line bg-line md:grid-cols-5">
+          {centreImages.map((img, i) => (
+            <li key={img.src} className={i === 4 ? "col-span-2 md:col-span-1" : ""}>
+              <Photo
+                img={img}
+                ratio="7/5"
+                sizes="(max-width: 768px) 50vw, 20vw"
+                className="w-full"
+              />
+            </li>
+          ))}
+        </ul>
+
+        <div className="mt-16 space-y-16">
           {centreGroups.map((group) => (
             <div key={group.region}>
               <div className="flex items-baseline justify-between gap-4 border-b border-ink/25 pb-3">

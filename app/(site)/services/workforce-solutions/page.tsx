@@ -3,6 +3,8 @@ import { Reveal } from "@/components/reveal";
 import { PageHeader, Section, SectionHead } from "@/components/ui";
 import { InquiryForm } from "@/components/inquiry-form";
 import { industryPartners, workforceSolutions } from "@/lib/content";
+import { partnerLogos, workforceImages } from "@/lib/assets";
+import { Logo, Photo } from "@/components/media";
 
 export const metadata: Metadata = {
   title: "Workforce solutions",
@@ -19,17 +21,38 @@ export default function WorkforcePage() {
         lede={workforceSolutions.intro}
       />
 
+      <Photo
+        img={workforceImages.staffing}
+        priority
+        sizes="100vw"
+        className="h-[240px] w-full md:h-[400px]"
+      />
+
       <Section tone="white">
         <ol className="grid gap-px border border-line bg-line md:grid-cols-3">
           {workforceSolutions.offerings.map((item, i) => (
-            <Reveal as="li" key={item.name} delay={i * 70} className="bg-white p-8">
-              <span className="font-mono text-[0.72rem] tracking-[0.14em] text-mist">
-                {String(i + 1).padStart(2, "0")}
+            <Reveal as="li" key={item.name} delay={i * 70} className="bg-white">
+              <Photo
+                img={
+                  [
+                    workforceImages.recruitment,
+                    workforceImages.staffing,
+                    workforceImages.payroll,
+                  ][i]
+                }
+                ratio="16/9"
+                sizes="(max-width: 768px) 100vw, 33vw"
+                className="w-full"
+              />
+              <span className="block p-8">
+                <span className="font-mono text-[0.72rem] tracking-[0.14em] text-mist">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <h2 className="mt-3 text-xl font-bold">{item.name}</h2>
+                <span className="mt-3 block text-[0.94rem] leading-relaxed text-slate">
+                  {item.body}
+                </span>
               </span>
-              <h2 className="mt-3 text-xl font-bold">{item.name}</h2>
-              <p className="mt-3 text-[0.94rem] leading-relaxed text-slate">
-                {item.body}
-              </p>
             </Reveal>
           ))}
         </ol>
@@ -44,13 +67,19 @@ export default function WorkforcePage() {
         />
         <div className="mt-12">
           <p className="eyebrow text-turmeric">Employers we work with</p>
-          <ul className="mt-5 flex flex-wrap gap-2">
+          <ul className="mt-5 grid grid-cols-2 gap-px border border-indigo-700 bg-indigo-700 sm:grid-cols-3 lg:grid-cols-5">
             {industryPartners.map((partner) => (
               <li
                 key={partner.slug}
-                className="border border-indigo-700 px-4 py-2 font-display text-[0.88rem] font-medium text-white"
+                className="flex min-h-[4.5rem] items-center justify-center bg-white px-6 py-4"
               >
-                {partner.name}
+                {partnerLogos[partner.slug] ? (
+                  <Logo img={partnerLogos[partner.slug]} height={34} />
+                ) : (
+                  <span className="font-display text-[0.88rem] font-medium text-ink">
+                    {partner.name}
+                  </span>
+                )}
               </li>
             ))}
           </ul>

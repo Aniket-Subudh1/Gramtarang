@@ -3,6 +3,8 @@ import { Reveal } from "@/components/reveal";
 import { PageHeader, Section, SectionHead } from "@/components/ui";
 import { InquiryForm } from "@/components/inquiry-form";
 import { careers, centreGroups } from "@/lib/content";
+import { home } from "@/lib/assets";
+import { Photo } from "@/components/media";
 
 export const metadata: Metadata = {
   title: "Careers",
@@ -18,6 +20,13 @@ export default function CareersPage() {
   return (
     <>
       <PageHeader eyebrow="Careers" title="Work at Gram Tarang" lede={careers.intro} />
+
+      <Photo
+        img={home.classroom}
+        priority
+        sizes="100vw"
+        className="h-[220px] w-full md:h-[360px]"
+      />
 
       <Section tone="white">
         <div className="grid gap-12 lg:grid-cols-[1fr_1fr] lg:gap-20">

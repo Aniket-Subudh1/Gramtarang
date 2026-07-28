@@ -3,6 +3,8 @@ import { Reveal } from "@/components/reveal";
 import { ButtonLink, Note, PageHeader, Section, SectionHead } from "@/components/ui";
 import { InquiryForm } from "@/components/inquiry-form";
 import { apprenticeship, org } from "@/lib/content";
+import { facilityImages } from "@/lib/assets";
+import { Photo } from "@/components/media";
 
 export const metadata: Metadata = {
   title: "Work-integrated training & apprenticeship",
@@ -17,6 +19,13 @@ export default function ApprenticeshipPage() {
         eyebrow="Services"
         title="Work-integrated training & apprenticeship"
         lede={apprenticeship.intro}
+      />
+
+      <Photo
+        img={facilityImages.ashokLeyland}
+        priority
+        sizes="100vw"
+        className="h-[240px] w-full md:h-[400px]"
       />
 
       <Section tone="white">

@@ -1,36 +1,41 @@
-export function Wordmark({ tone = "dark" }: { tone?: "dark" | "light" }) {
-  const ink = tone === "light" ? "#ffffff" : "#101625";
-  const sub = tone === "light" ? "#b8c6e2" : "#8a93a6";
+import NextImage from "next/image";
+import { brand } from "@/lib/assets";
 
+/**
+ * The organisation's own logo. On the dark footer it sits on a light
+ * tile, because the mark is coloured artwork on a transparent ground
+ * and inverting it would misrepresent the brand.
+ */
+export function Wordmark({ tone = "dark" }: { tone?: "dark" | "light" }) {
   return (
     <span className="flex items-center gap-3">
-      {/* A rising measure — the same motif as the scale bar in the hero. */}
-      <svg
-        width="34"
-        height="34"
-        viewBox="0 0 34 34"
-        fill="none"
-        aria-hidden
-        className="shrink-0"
+      <span
+        className={
+          tone === "light"
+            ? "flex items-center justify-center bg-white px-2.5 py-2"
+            : "flex items-center"
+        }
       >
-        <rect width="34" height="34" fill="#14204a" />
-        <rect x="6" y="20" width="2.5" height="8" fill="#b8c6e2" />
-        <rect x="11" y="15" width="2.5" height="13" fill="#b8c6e2" />
-        <rect x="16" y="11" width="2.5" height="17" fill="#e5a83c" />
-        <rect x="21" y="8" width="2.5" height="20" fill="#b23a2b" />
-        <rect x="26" y="6" width="2.5" height="22" fill="#ffffff" />
-      </svg>
+        <NextImage
+          src={brand.lockup.src}
+          alt={brand.lockup.alt}
+          width={brand.lockup.w}
+          height={brand.lockup.h}
+          priority
+          style={{ height: 42, width: "auto" }}
+        />
+      </span>
 
-      <span className="flex flex-col leading-none">
+      <span className="hidden flex-col leading-none sm:flex">
         <span
-          className="font-display text-[1.08rem] font-extrabold tracking-[-0.03em]"
-          style={{ color: ink }}
+          className="font-display text-[1.02rem] font-extrabold tracking-[-0.03em]"
+          style={{ color: tone === "light" ? "#ffffff" : "#101625" }}
         >
           Gram Tarang
         </span>
         <span
-          className="mt-1 font-mono text-[0.5625rem] uppercase tracking-[0.18em]"
-          style={{ color: sub }}
+          className="mt-1 font-mono text-[0.5rem] uppercase tracking-[0.16em]"
+          style={{ color: tone === "light" ? "#b8c6e2" : "#8a93a6" }}
         >
           Employability Training
         </span>

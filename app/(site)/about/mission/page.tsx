@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Reveal } from "@/components/reveal";
 import { PageHeader, Section, SectionHead } from "@/components/ui";
 import { sixDimensions } from "@/lib/content";
+import { home, sixDimensionsDiagram } from "@/lib/assets";
+import { Photo } from "@/components/media";
 
 export const metadata: Metadata = {
   title: "Mission, vision & values",
@@ -66,6 +68,11 @@ export default function MissionPage() {
 
       <Section tone="chalk">
         <SectionHead eyebrow="Our values" title="Four things we do not trade away." />
+        <Photo
+          img={home.training}
+          sizes="100vw"
+          className="mt-10 h-[220px] w-full md:h-[340px]"
+        />
         <div className="mt-12 grid gap-px border border-line bg-line md:grid-cols-2">
           {values.map((value, i) => (
             <Reveal key={value.name} delay={i * 70} className="bg-white p-8">
@@ -83,6 +90,11 @@ export default function MissionPage() {
           eyebrow="What we develop"
           title="Six dimensions of skill."
           lede="A trade certificate on its own does not hold a job. These six are assessed together, because employers hire and keep people on all of them."
+        />
+        <Photo
+          img={sixDimensionsDiagram}
+          sizes="(max-width: 1280px) 100vw, 1100px"
+          className="mx-auto mt-12 w-full max-w-4xl border border-line bg-white"
         />
         <ol className="mt-12 grid gap-px border border-line bg-line md:grid-cols-2 xl:grid-cols-3">
           {sixDimensions.map((dim) => (

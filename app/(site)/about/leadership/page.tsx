@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Reveal } from "@/components/reveal";
 import { PageHeader, Section } from "@/components/ui";
 import { leadership } from "@/lib/content";
+import { leaderPortraits } from "@/lib/assets";
+import { Photo } from "@/components/media";
 
 export const metadata: Metadata = {
   title: "Executive leadership",
@@ -24,6 +26,14 @@ export default function LeadershipPage() {
             <Reveal as="li" key={person.name} delay={i * 40} className="py-12 first:pt-0">
               <div className="grid gap-6 md:grid-cols-[minmax(0,16rem)_1fr] md:gap-12">
                 <div>
+                  {leaderPortraits[person.name] && (
+                    <Photo
+                      img={leaderPortraits[person.name]}
+                      ratio="1/1"
+                      sizes="(max-width: 768px) 40vw, 200px"
+                      className={`mb-5 w-40 md:w-48 ${person.memoriam ? "grayscale" : ""}`}
+                    />
+                  )}
                   <h2 className="text-2xl font-bold tracking-[-0.03em]">
                     {person.name}
                   </h2>

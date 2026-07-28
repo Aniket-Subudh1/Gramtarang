@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import { ButtonLink, PageHeader, Section, SectionHead } from "@/components/ui";
 import { InquiryForm } from "@/components/inquiry-form";
 import { sectors } from "@/lib/content";
+import { sectorImages } from "@/lib/assets";
+import { Photo } from "@/components/media";
 
 export function generateStaticParams() {
   return sectors.map((s) => ({ slug: s.slug }));
@@ -34,6 +36,15 @@ export default async function SectorPage({
   return (
     <>
       <PageHeader eyebrow={`Sector · ${sector.code}`} title={sector.name} lede={sector.blurb} />
+
+      {sectorImages[sector.slug] && (
+        <Photo
+          img={sectorImages[sector.slug]}
+          priority
+          sizes="100vw"
+          className="h-[260px] w-full md:h-[420px]"
+        />
+      )}
 
       <Section tone="white">
         <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20">

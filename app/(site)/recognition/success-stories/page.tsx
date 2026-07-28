@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Reveal } from "@/components/reveal";
 import { ButtonLink, PageHeader, Section } from "@/components/ui";
 import { stories } from "@/lib/content";
+import { storyPortraits } from "@/lib/assets";
+import { Photo } from "@/components/media";
 
 export const metadata: Metadata = {
   title: "Success stories",
@@ -24,6 +26,21 @@ export default function StoriesPage() {
             <Reveal as="li" key={story.name} delay={i * 40} className="py-12 first:pt-0">
               <article className="grid gap-6 md:grid-cols-[minmax(0,15rem)_1fr] md:gap-12">
                 <header>
+                  {storyPortraits[story.name] ? (
+                    <Photo
+                      img={storyPortraits[story.name]}
+                      ratio="1/1"
+                      sizes="140px"
+                      className="mb-5 w-32 rounded-full md:w-36"
+                    />
+                  ) : (
+                    <span
+                      aria-hidden
+                      className="mb-5 flex h-32 w-32 items-center justify-center rounded-full bg-indigo-50 font-display text-2xl font-bold text-indigo-700 md:h-36 md:w-36"
+                    >
+                      {story.name.split(" ").map((w) => w[0]).slice(0, 2).join("")}
+                    </span>
+                  )}
                   <h2 className="text-2xl font-bold tracking-[-0.03em]">{story.name}</h2>
                   <p className="eyebrow mt-2 text-madder">{story.trade}</p>
                   <p className="mt-1.5 font-mono text-[0.78rem] text-mist">{story.from}</p>

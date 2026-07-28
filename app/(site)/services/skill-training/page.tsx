@@ -3,6 +3,8 @@ import Link from "next/link";
 import { Reveal } from "@/components/reveal";
 import { ButtonLink, Note, PageHeader, Section, SectionHead } from "@/components/ui";
 import { careerPathing, methodPhases, sectors, sixDimensions } from "@/lib/content";
+import { methodImages, sectorImages, sixDimensionsDiagram } from "@/lib/assets";
+import { Photo } from "@/components/media";
 
 export const metadata: Metadata = {
   title: "Skill training",
@@ -36,6 +38,14 @@ export default function SkillTrainingPage() {
               <ul className="mt-7 grid gap-8 md:grid-cols-2 xl:grid-cols-3">
                 {phase.steps.map((step, i) => (
                   <Reveal as="li" key={step.n} delay={i * 60}>
+                    {methodImages[step.title] && (
+                      <Photo
+                        img={methodImages[step.title]}
+                        ratio="3/2"
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                        className="mb-5 w-full"
+                      />
+                    )}
                     <span className="font-mono text-[0.72rem] tracking-[0.14em] text-mist">
                       Step {String(step.n).padStart(2, "0")}
                     </span>
@@ -58,6 +68,11 @@ export default function SkillTrainingPage() {
           eyebrow="What gets assessed"
           title="Six dimensions of skill."
           lede="Employers do not lose people because they cannot run the machine. They lose them because of everything else. So everything else is taught and measured too."
+        />
+        <Photo
+          img={sixDimensionsDiagram}
+          sizes="(max-width: 1280px) 100vw, 1100px"
+          className="mx-auto mt-12 w-full max-w-4xl border border-line bg-white"
         />
         <ol className="mt-12 grid gap-px border border-line bg-line md:grid-cols-2 xl:grid-cols-3">
           {sixDimensions.map((dim) => (
@@ -122,12 +137,22 @@ export default function SkillTrainingPage() {
         <SectionHead eyebrow="Choose a trade" title="Where would you like to start?" />
         <ul className="mt-10 flex flex-wrap gap-2">
           {sectors.map((sector) => (
-            <li key={sector.slug}>
+            <li key={sector.slug} className="w-[15rem] max-w-full">
               <Link
                 href={`/sectors/${sector.slug}`}
-                className="inline-block border border-line-strong bg-white px-5 py-3 font-display text-[0.92rem] font-medium transition-colors hover:border-ink"
+                className="group block border border-line-strong bg-white transition-colors hover:border-ink"
               >
-                {sector.name}
+                {sectorImages[sector.slug] && (
+                  <Photo
+                    img={sectorImages[sector.slug]}
+                    ratio="16/10"
+                    sizes="240px"
+                    className="w-full"
+                  />
+                )}
+                <span className="block px-5 py-3 font-display text-[0.92rem] font-medium">
+                  {sector.name}
+                </span>
               </Link>
             </li>
           ))}

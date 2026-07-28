@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { Reveal } from "./reveal";
+import { Logo } from "./media";
+import type { Img } from "@/lib/assets";
 
 /* ----------------------------- section ---------------------------- */
 
@@ -195,6 +197,26 @@ export function Marquee({ items }: { items: string[] }) {
             className="whitespace-nowrap border border-line bg-white px-5 py-3 font-display text-[0.9rem] font-medium text-ink"
           >
             {name}
+          </span>
+        ))}
+      </div>
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-chalk to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-chalk to-transparent" />
+    </div>
+  );
+}
+
+export function LogoMarquee({ items }: { items: Img[] }) {
+  const doubled = [...items, ...items];
+  return (
+    <div className="drift-host relative overflow-hidden py-2">
+      <div className="drift flex w-max items-stretch gap-3">
+        {doubled.map((img, i) => (
+          <span
+            key={`${img.src}-${i}`}
+            className="flex min-w-[9.5rem] items-center justify-center border border-line bg-white px-7 py-5"
+          >
+            <Logo img={img} height={38} />
           </span>
         ))}
       </div>
