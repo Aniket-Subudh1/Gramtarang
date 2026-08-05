@@ -35,53 +35,82 @@ export const org = {
 export const hero = {
   eyebrow: "Social enterprise · Skilling since 2006",
   headline: ["Skills that hold,", "in the places", "jobs don't reach."],
-  lede: "We train school dropouts, tribal youth and first-generation earners from rural Odisha, Andhra Pradesh, Assam and Jharkhand for skilled work in manufacturing, apparel, automotive and healthcare — then place them, and keep in touch after they start.",
+  lede: "We train school dropouts, tribal youth and first-generation earners from rural Odisha, Andhra Pradesh, Assam and Jharkhand for skilled work in manufacturing, apparel, automotive, agriculture and healthcare — then place them, and keep in touch after they start.",
   primaryCta: { label: "Start an inquiry", href: "/contact" },
   secondaryCta: { label: "See what we teach", href: "/sectors" },
 };
 
-/** The hero scale bar: one tick per 1,000 people trained. */
-export const scaleBar = {
-  totalThousands: 70,
-  unit: "1 mark = 1,000 people trained",
-  milestones: [
-    { at: 1, year: "2006", note: "First machinist batch, Paralakhemundi" },
-    { at: 12, year: "2010", note: "NSDC's second-ever training partner" },
-    { at: 30, year: "2015", note: "NAAC 'A' grade; 16,034 trained that year" },
-    { at: 52, year: "2019", note: "Pan-India, 30+ centres" },
-    { at: 70, year: "Today", note: "70,000+ trained, 80% placed" },
-  ],
-};
+/**
+ * Enrolments by financial year, 2006-07 to 2026-27.
+ * Source: GTET year-on-year enrolment workbook (August 2026).
+ * The 2019-20 peak is the Agri RPL project in Odisha, which certified
+ * 70,805 farming households in a single year.
+ */
+export const enrolmentSeries: { fy: string; total: number; note?: string }[] = [
+  { fy: "2006-07", total: 263, note: "First machinist batch at Paralakhemundi" },
+  { fy: "2007-08", total: 467 },
+  { fy: "2008-09", total: 1355 },
+  { fy: "2009-10", total: 2864 },
+  { fy: "2010-11", total: 4598, note: "NSDC's second-ever training partner" },
+  { fy: "2011-12", total: 8334 },
+  { fy: "2012-13", total: 9675 },
+  { fy: "2013-14", total: 10140 },
+  { fy: "2014-15", total: 15774 },
+  { fy: "2015-16", total: 19855, note: "NAAC 'A' grade; World Youth Skills Day address" },
+  { fy: "2016-17", total: 29028 },
+  { fy: "2017-18", total: 43942 },
+  { fy: "2018-19", total: 53108 },
+  { fy: "2019-20", total: 140510, note: "Agri RPL certifies 70,805 farming households" },
+  { fy: "2020-21", total: 67246, note: "Covid year; in-situ school programmes carry the load" },
+  { fy: "2021-22", total: 82658 },
+  { fy: "2022-23", total: 88361 },
+  { fy: "2023-24", total: 98267 },
+  { fy: "2024-25", total: 96802 },
+  { fy: "2025-26", total: 122208 },
+  { fy: "2026-27", total: 118768, note: "Year to date" },
+];
+
+export const enrolmentTotal = 1014223;
+
+/** Life-to-date enrolments by delivery model. */
+export const verticalTotals = [
+  { name: "In-situ NSQF schools", total: 617602 },
+  { name: "Work-integrated training & apprenticeships", total: 124048 },
+  { name: "Short-term skilling", total: 172978 },
+  { name: "Agriculture skilling", total: 86930 },
+  { name: "Long-term TVET (ITI & diploma)", total: 12665 },
+];
 
 export const stats = [
-  { value: "70,000+", label: "Young people trained", note: "Across every sector we run" },
-  { value: "80%", label: "Average placement rate", note: "Into organised-sector jobs" },
-  { value: "60%", label: "From SC/ST households", note: "Largely tribal communities" },
-  { value: "50%+", label: "Women", note: "Of everyone we train" },
+  { value: "10.1 lakh", label: "Enrolments since 2006", note: "1,014,223 life-to-date" },
+  { value: "80%", label: "Placement offers", note: "Across all verticals" },
+  { value: "1.19 lakh", label: "Enrolled in 2026-27", note: "Against 263 in our first year" },
+  { value: "11", label: "Skill verticals", note: "From ITI trades to agriculture" },
 ];
 
 export const impactDetail = [
   {
-    heading: "Training capability",
+    heading: "Scale",
     points: [
-      "Over 350 employees, including 200 trainers and 60 field mobilisation staff",
-      "Training across automotive, manufacturing, apparel, retail and hospitality, ITES and BFSI",
+      "1,014,223 enrolments life-to-date across eleven verticals",
+      "617,602 of those through in-situ NSQF programmes in schools",
+      "124,048 through work-integrated training and apprenticeships",
     ],
   },
   {
     heading: "Who we reach",
     points: [
-      "40% of those trained are school dropouts",
-      "60% come from SC/ST households, mainly tribal communities",
-      "Over half are women",
+      "School dropouts, SC/ST households and first-generation earners",
+      "In apparel, 70% of trainees are women and 80% are the first earner in their family",
+      "Over 350 employees, including 200 trainers and 60 field mobilisation staff",
     ],
   },
   {
-    heading: "Track record",
+    heading: "What happens after",
     points: [
-      "Five-year compound growth of 70%",
-      "16,034 people trained in FY 2014–15 alone",
-      "Placement record averaging 80%",
+      "80% placement offers overall; 95% in industrial sewing, 85% in ITI trades",
+      "In apparel, 42,102 of 52,628 trainees are in work, a 75% retention rate",
+      "Household income up around 40% where we have measured it",
     ],
   },
 ];
@@ -98,11 +127,17 @@ export type Sector = {
   trades: string[];
   detail: string[];
   employers?: string[];
+  /** Life-to-date enrolments, from the year-on-year workbook. */
+  enrolments?: number;
+  /** Share of trainees receiving a placement offer. */
+  placement?: string;
 };
 
 export const sectors: Sector[] = [
   {
     slug: "manufacturing",
+    enrolments: 52432,
+    placement: "72%",
     code: "MFG",
     name: "Manufacturing",
     blurb:
@@ -125,6 +160,8 @@ export const sectors: Sector[] = [
   },
   {
     slug: "apparel-textiles",
+    enrolments: 52628,
+    placement: "95%",
     code: "APP",
     name: "Apparel & textiles",
     blurb:
@@ -144,6 +181,8 @@ export const sectors: Sector[] = [
   },
   {
     slug: "automotive",
+    enrolments: 26829,
+    placement: undefined,
     code: "AUT",
     name: "Automotive",
     blurb:
@@ -164,6 +203,8 @@ export const sectors: Sector[] = [
   },
   {
     slug: "retail-hospitality",
+    enrolments: 25136,
+    placement: "78%",
     code: "RET",
     name: "Retail & hospitality",
     blurb:
@@ -181,6 +222,8 @@ export const sectors: Sector[] = [
   },
   {
     slug: "healthcare",
+    enrolments: 1300,
+    placement: undefined,
     code: "HLT",
     name: "Healthcare",
     blurb: "Diagnostic and theatre technician roles for district hospitals and labs.",
@@ -196,6 +239,8 @@ export const sectors: Sector[] = [
   },
   {
     slug: "agriculture",
+    enrolments: 86930,
+    placement: "100%",
     code: "AGR",
     name: "Agriculture",
     blurb:
@@ -207,6 +252,37 @@ export const sectors: Sector[] = [
     ],
     detail: [
       "The Agri RPL project in Odisha certifies the skills farming households already hold, opening access to formal credit, schemes and employment that require documented competence.",
+    ],
+  },
+  {
+    slug: "bfsi",
+    enrolments: 13572,
+    placement: "100%",
+    code: "BFS",
+    name: "Banking & financial services",
+    blurb:
+      "Sales and service roles for banks, insurers and micro-finance lenders, with a full placement record.",
+    trades: [
+      "Business Correspondent / Business Facilitator",
+      "Micro-finance executive",
+      "Banking sales executive",
+      "Insurance agent",
+    ],
+    detail: [
+      "The BFSI programme has enrolled 13,572 people since 2010-11, and every batch assessed has received placement offers. It suits candidates with stronger literacy and numeracy who want an office-based route out of casual work.",
+    ],
+  },
+  {
+    slug: "beauty-wellness",
+    enrolments: 2381,
+    placement: "100%",
+    code: "BWL",
+    name: "Beauty & wellness",
+    blurb:
+      "Our newest vertical, opened in 2024-25, and almost entirely taken up by women.",
+    trades: ["Beauty therapist", "Hair stylist", "Assistant spa therapist"],
+    detail: [
+      "Beauty and wellness opened in 2024-25 with 2,080 enrolments in its first year. It is the fastest vertical we have ever stood up, and the one with the clearest route to self-employment: many graduates open a salon rather than join one.",
     ],
   },
 ];

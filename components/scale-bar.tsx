@@ -1,15 +1,20 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { scaleBar } from "@/lib/content";
+import { enrolmentSeries, enrolmentTotal } from "@/lib/content";
+
+const fmt = new Intl.NumberFormat("en-IN");
 
 /**
  * The measure.
  *
- * Seventy marks, one for every thousand people Gram Tarang has trained.
- * Milestone years sit under the mark where they fall, so the bar reads
- * as both a quantity and a chronology — the way a rule on a workshop
- * bench measures a part and a shift at the same time.
+ * One bar per financial year, height proportional to enrolments that
+ * year, drawn from the year-on-year workbook. It reads as a quantity
+ * and a chronology at once — the way a rule on a workshop bench
+ * measures both a part and a shift.
+ *
+ * The 2019-20 spike is real: the Agri RPL project certified 70,805
+ * farming households in a single year.
  */
 export function ScaleBar() {
   const [run, setRun] = useState(false);
@@ -32,85 +37,70 @@ export function ScaleBar() {
     return () => io.disconnect();
   }, []);
 
-  const total = scaleBar.totalThousands;
-  const marks = Array.from({ length: total }, (_, i) => i + 1);
-  const milestoneAt = new Map(scaleBar.milestones.map((m) => [m.at, m]));
+  const peak = Math.max(...enrolmentSeries.map((y) => y.total));
+  const shown = active === null ? null : enrolmentSeries[active];
 
   return (
     <div ref={ref} className="select-none">
-      <div className="flex items-baseline justify-between gap-4">
-        <p className="eyebrow text-mist">{scaleBar.unit}</p>
-        <p className="eyebrow text-mist">70,000 people</p>
+      <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+        <p className="eyebrow text-mist">Enrolments by financial year</p>
+        <p className="eyebrow text-mist">
+          {fmt.format(enrolmentTotal)} life-to-date
+        </p>
       </div>
 
-      {/* the rule */}
-      <div className="mt-3 flex h-16 items-end gap-[3px] border-b border-ink/25 pb-0 sm:gap-[5px]">
-        {marks.map((m) => {
-          const milestone = milestoneAt.get(m);
-          const decade = m % 10 === 0;
-          const height = milestone ? 100 : decade ? 62 : 34;
-          const isActive = active === m;
+      <div className="mt-4 flex h-28 items-end gap-[2px] border-b border-ink/25 sm:gap-1">
+        {enrolmentSeries.map((year, i) => {
+          const isActive = active === i;
+          const isPeak = year.total === peak;
           return (
             <button
-              key={m}
+              key={year.fy}
               type="button"
-              tabIndex={milestone ? 0 : -1}
-              aria-hidden={!milestone}
-              aria-label={
-                milestone ? `${milestone.year}: ${milestone.note}` : undefined
-              }
-              onMouseEnter={() => milestone && setActive(m)}
-              onFocus={() => milestone && setActive(m)}
+              aria-label={`${year.fy}: ${fmt.format(year.total)} enrolments${year.note ? `. ${year.note}` : ""}`}
+              onMouseEnter={() => setActive(i)}
+              onFocus={() => setActive(i)}
               onMouseLeave={() => setActive(null)}
               onBlur={() => setActive(null)}
-              className={`${run ? "tick" : "opacity-0"} flex-1 origin-bottom ${
-                milestone ? "cursor-help" : "cursor-default"
-              }`}
+              className={`${run ? "tick" : "opacity-0"} flex-1 origin-bottom transition-colors`}
               style={{
-                height: `${height}%`,
-                animationDelay: run ? `${m * 14}ms` : undefined,
-                background: milestone
-                  ? isActive
-                    ? "var(--color-madder)"
-                    : "var(--color-indigo-900)"
-                  : decade
-                    ? "var(--color-indigo-500)"
-                    : "var(--color-line-strong)",
+                // square root keeps the early years legible next to the
+                // 2019-20 spike without misrepresenting the ratio
+                height: `${Math.max(2, Math.sqrt(year.total / peak) * 100)}%`,
+                animationDelay: run ? `${i * 40}ms` : undefined,
+                background: isActive
+                  ? "var(--color-madder)"
+                  : isPeak
+                    ? "var(--color-turmeric)"
+                    : year.note
+                      ? "var(--color-indigo-900)"
+                      : "var(--color-indigo-500)",
               }}
             />
           );
         })}
       </div>
 
-      {/* milestone labels */}
-      <div className="relative mt-2 h-10">
-        {scaleBar.milestones.map((m) => {
-          const pct = ((m.at - 0.5) / total) * 100;
-          const isLast = m.at === total;
-          return (
-            <div
-              key={m.year}
-              className="absolute top-0"
-              style={{
-                left: `${pct}%`,
-                transform: isLast ? "translateX(-100%)" : "translateX(-4px)",
-              }}
-            >
-              <span className="font-mono text-[0.6875rem] font-medium tracking-wide text-ink">
-                {m.year}
-              </span>
-            </div>
-          );
-        })}
+      <div className="mt-2 flex justify-between font-mono text-[0.65rem] tracking-wide text-mist">
+        <span>2006-07</span>
+        <span className="hidden sm:inline">2016-17</span>
+        <span>2026-27</span>
       </div>
 
-      <p
-        className="min-h-[1.5rem] font-body text-[0.9rem] italic text-slate transition-opacity duration-200"
-        style={{ opacity: active ? 1 : 0.55 }}
-      >
-        {active
-          ? milestoneAt.get(active)?.note
-          : "Hover a tall mark to see what happened that year."}
+      <p className="mt-3 min-h-[2.75rem] font-body text-[0.9rem] leading-snug text-slate sm:min-h-[1.5rem]">
+        {shown ? (
+          <>
+            <span className="font-display font-semibold text-ink">
+              {shown.fy} — {fmt.format(shown.total)} enrolments
+            </span>
+            {shown.note && <span className="italic"> · {shown.note}</span>}
+          </>
+        ) : (
+          <span className="italic opacity-60">
+            Hover a year to see its intake. Bars are square-root scaled so the
+            early years stay visible beside the 2019-20 peak.
+          </span>
+        )}
       </p>
     </div>
   );

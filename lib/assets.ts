@@ -89,14 +89,11 @@ export const sectorImages: Record<string, Img> = {
     src: "/images/sectors/retail-hospitality.webp",
     w: 1400,
     h: 900,
-    alt: "A Gram Tarang trainee working as a brewmaster at Café Coffee Day",
+    alt: "A Gram Tarang trainee preparing coffee as a Café Coffee Day brewmaster",
   },
-  healthcare: {
-    src: "/images/sectors/healthcare.webp",
-    w: 1400,
-    h: 900,
-    alt: "Trainees in a practical technician class",
-  },
+  // healthcare, bfsi and beauty-wellness are deliberately absent: the media
+  // library has no photograph of them, and the sector cards render a
+  // typographic panel rather than borrow an unrelated image.
   agriculture: {
     src: "/images/sectors/agriculture.webp",
     w: 1400,
@@ -106,6 +103,20 @@ export const sectorImages: Record<string, Img> = {
 };
 
 /** /index.php/training-methodology-philosophy/ */
+export const logistics: Img = {
+  src: "/images/sectors/logistics.webp",
+  w: 1400,
+  h: 900,
+  alt: "Forklift operator training on the yard",
+};
+
+export const mobilisation: Img = {
+  src: "/images/mobilisation.webp",
+  w: 1400,
+  h: 900,
+  alt: "A village mobilisation meeting, where most trainees are first recruited",
+};
+
 export const methodDiagrams = {
   threePhases: {
     src: "/images/method/three-phases.webp",

@@ -32,8 +32,12 @@ echo "→ sectors  (from each sector page + the matching hero slide)"
 fill 2017/03/Banner-4.jpg           images/sectors/manufacturing.webp      1400x900
 fill 2017/03/Banner-3.jpg           images/sectors/apparel-textiles.webp   1400x900
 fill 2017/03/2WheelServiceTech.jpg  images/sectors/automotive.webp         1400x900
-fill 2017/03/c6.jpg                 images/sectors/retail-hospitality.webp 1400x900   # CCD café
-fill 2017/03/IMG_2227.jpg           images/sectors/healthcare.webp         1400x900
+fill 2017/03/item-4.jpg             images/sectors/retail-hospitality.webp 1400x900   # CCD brewmaster at work
+fill 2016/06/IMG_5819.jpg           images/sectors/logistics.webp          1400x900   # forklift training
+fill 2016/06/DSCN6283.jpg           images/mobilisation.webp               1400x900   # village mobilisation
+# NOTE: healthcare, BFSI and beauty & wellness have no photograph in the
+# media library. Those sector cards render a typographic panel rather than
+# borrow an unrelated image.
 fill 2021/10/Agri-rpl-2.jpeg        images/sectors/agriculture.webp        1400x900
 
 echo "→ methodology  (/training-methodology-philosophy/)"

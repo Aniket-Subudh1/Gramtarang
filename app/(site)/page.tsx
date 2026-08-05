@@ -160,13 +160,21 @@ export default function HomePage() {
                 href={`/sectors/${sector.slug}`}
                 className="group flex h-full flex-col transition-colors hover:bg-indigo-50"
               >
-                {sectorImages[sector.slug] && (
+                {sectorImages[sector.slug] ? (
                   <Photo
                     img={sectorImages[sector.slug]}
                     ratio="16/10"
                     sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
                     className="w-full"
                   />
+                ) : (
+                  <span
+                    aria-hidden
+                    className="flex items-center justify-center bg-indigo-900 font-display text-5xl font-extrabold tracking-[-0.05em] text-indigo-500"
+                    style={{ aspectRatio: "16/10" }}
+                  >
+                    {sector.code}
+                  </span>
                 )}
                 <span className="flex flex-1 flex-col p-7 md:p-8">
                   <span className="eyebrow text-madder">{sector.code}</span>
@@ -176,6 +184,10 @@ export default function HomePage() {
                   </span>
                   <span className="mt-6 block font-mono text-[0.7rem] uppercase tracking-[0.12em] text-mist">
                     {sector.trades.length} trades
+                    {sector.enrolments
+                      ? ` · ${sector.enrolments.toLocaleString("en-IN")} trained`
+                      : ""}
+                    {sector.placement ? ` · ${sector.placement} placed` : ""}
                   </span>
                   <span className="mt-2 block font-display text-[0.88rem] font-semibold text-indigo-700">
                     <span className="underline-offset-4 group-hover:underline">

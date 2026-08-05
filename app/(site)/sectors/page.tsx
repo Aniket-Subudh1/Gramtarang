@@ -56,6 +56,14 @@ export default function SectorsPage() {
                       </li>
                     ))}
                   </ul>
+                  {(sector.enrolments || sector.placement) && (
+                    <p className="mt-5 font-mono text-[0.72rem] uppercase tracking-[0.1em] text-madder">
+                      {sector.enrolments
+                        ? `${sector.enrolments.toLocaleString("en-IN")} trained`
+                        : ""}
+                      {sector.placement ? ` · ${sector.placement} placed` : ""}
+                    </p>
+                  )}
                   {sector.employers && (
                     <>
                       <p className="eyebrow mt-6 text-mist">Where people are placed</p>

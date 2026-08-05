@@ -152,6 +152,39 @@ phone, and length caps on every field.
 
 ---
 
+## Where the numbers come from
+
+Every figure on the site is derived from the GTET year-on-year enrolment
+workbook (August 2026) and lives in `lib/content.ts`. The headline was badly
+understated on the old website:
+
+| | Old site | Workbook |
+|---|---|---|
+| Enrolments | "over 70,000" | **1,014,223** life-to-date |
+| Placement | 78% / 80% (inconsistent) | 80% overall, by vertical below |
+| Verticals listed | 6 | **11** |
+
+Life-to-date by delivery model: in-situ NSQF schools 617,602 · work-integrated
+training and apprenticeships 124,048 · short-term skilling 172,978 ·
+agriculture 86,930 · long-term TVET 12,665.
+
+By sector, with placement offers: industrial sewing 52,628 (95%) ·
+manufacturing 52,432 (72%) · agriculture 86,930 (100%) · automotive 26,829 ·
+hospitality/retail/IT-ITeS 25,136 (78%) · BFSI 13,572 (100%) · beauty &
+wellness 2,381 (100%).
+
+**Two verticals the old website never mentioned** — BFSI and beauty & wellness —
+now have their own sector pages. Beauty & wellness opened in 2024-25 and is the
+fastest vertical the organisation has stood up.
+
+The home page chart plots enrolments for all 21 financial years from the
+workbook. Bars are square-root scaled so the early years stay legible next to
+the 2019-20 peak, which is real: the Agri RPL project certified 70,805 farming
+households in that single year. Update `enrolmentSeries` when the workbook is
+refreshed and the chart, the totals and the stat blocks all follow.
+
+---
+
 ## Images
 
 All photography, logos and diagrams come from the WordPress media library.

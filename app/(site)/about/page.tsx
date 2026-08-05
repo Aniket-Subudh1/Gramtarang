@@ -8,7 +8,7 @@ import {
   SectionHead,
   StatGrid,
 } from "@/components/ui";
-import { ecosystem, impactDetail, org, stats } from "@/lib/content";
+import { ecosystem, enrolmentTotal, impactDetail, org, stats, verticalTotals } from "@/lib/content";
 import { ecosystemLogos, heroPrimary } from "@/lib/assets";
 import { Logo, Photo } from "@/components/media";
 
@@ -73,6 +73,37 @@ export default function AboutPage() {
             </Reveal>
           ))}
         </div>
+      </Section>
+
+      <Section tone="indigo">
+        <SectionHead
+          tone="light"
+          eyebrow="Delivery models"
+          title="Where the million came from."
+          lede={`${enrolmentTotal.toLocaleString("en-IN")} enrolments since 2006, spread very unevenly across five ways of delivering training. The in-situ school programme is by far the largest, and the least visible.`}
+        />
+        <dl className="mt-12 divide-y divide-[--color-indigo-700] border-y border-indigo-700">
+          {verticalTotals.map((v) => (
+            <div key={v.name} className="flex flex-wrap items-baseline gap-x-6 gap-y-2 py-5">
+              <dt className="min-w-[16rem] flex-1 font-display text-lg font-semibold text-white">
+                {v.name}
+              </dt>
+              <dd className="font-mono text-sm text-turmeric">
+                {Math.round((v.total / enrolmentTotal) * 100)}%
+              </dd>
+              <dd className="w-32 text-right font-display text-xl font-bold text-white">
+                {v.total.toLocaleString("en-IN")}
+              </dd>
+              <dd className="w-full">
+                <span
+                  aria-hidden
+                  className="block h-1 bg-indigo-500"
+                  style={{ width: `${(v.total / enrolmentTotal) * 100}%` }}
+                />
+              </dd>
+            </div>
+          ))}
+        </dl>
       </Section>
 
       <Section tone="indigo-soft">

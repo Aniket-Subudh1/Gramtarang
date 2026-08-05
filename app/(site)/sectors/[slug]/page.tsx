@@ -46,6 +46,35 @@ export default async function SectorPage({
         />
       )}
 
+      {(sector.enrolments || sector.placement) && (
+        <div className="border-b border-line bg-indigo-900">
+          <dl className="shell grid grid-cols-2 gap-px py-0 sm:grid-cols-3">
+            {sector.enrolments && (
+              <div className="py-7">
+                <dt className="eyebrow text-turmeric">Enrolments to date</dt>
+                <dd className="mt-2 font-display text-3xl font-extrabold tracking-[-0.04em] text-white">
+                  {sector.enrolments.toLocaleString("en-IN")}
+                </dd>
+              </div>
+            )}
+            {sector.placement && (
+              <div className="py-7">
+                <dt className="eyebrow text-turmeric">Placement offers</dt>
+                <dd className="mt-2 font-display text-3xl font-extrabold tracking-[-0.04em] text-white">
+                  {sector.placement}
+                </dd>
+              </div>
+            )}
+            <div className="py-7">
+              <dt className="eyebrow text-turmeric">Trades</dt>
+              <dd className="mt-2 font-display text-3xl font-extrabold tracking-[-0.04em] text-white">
+                {sector.trades.length}
+              </dd>
+            </div>
+          </dl>
+        </div>
+      )}
+
       <Section tone="white">
         <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20">
           <div className="prose-gt max-w-none">
