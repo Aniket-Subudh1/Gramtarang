@@ -5,7 +5,7 @@
  */
 
 export const org = {
-  name: "Gram Tarang Employability Training Services",
+  name: "Gram Tarang Employability Training Services Pvt. Ltd.",
   shortName: "Gram Tarang",
   legalName: "Gram Tarang Employability Training Services Pvt. Ltd.",
   tagline: "Shaping lives, empowering communities",
