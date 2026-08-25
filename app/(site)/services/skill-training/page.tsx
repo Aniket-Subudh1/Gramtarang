@@ -5,12 +5,9 @@ import { ButtonLink, Note, PageHeader, Section, SectionHead } from "@/components
 import { careerPathing, methodPhases, sectors, sixDimensions } from "@/lib/content";
 import { methodDiagrams, pedagogyProduction, sectorImages } from "@/lib/assets";
 import { Photo } from "@/components/media";
+import { pages } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Skill training",
-  description:
-    "Gram Tarang's training philosophy and learning methodology: three phases, six steps, six dimensions of skill.",
-};
+export const metadata: Metadata = pages.skillTraining;
 
 export default function SkillTrainingPage() {
   return (

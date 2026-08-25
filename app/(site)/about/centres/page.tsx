@@ -2,12 +2,9 @@ import type { Metadata } from "next";
 import { Reveal } from "@/components/reveal";
 import { ButtonLink, PageHeader, Section, SectionHead } from "@/components/ui";
 import { centreGroups } from "@/lib/content";
+import { pages } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Our centres",
-  description:
-    "Gram Tarang training centres across Odisha, Andhra Pradesh, Telangana, Jharkhand and Assam.",
-};
+export const metadata: Metadata = pages.centres;
 
 const total = centreGroups.reduce((n, g) => n + g.centres.length, 0);
 

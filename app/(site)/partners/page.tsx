@@ -4,12 +4,9 @@ import { ButtonLink, PageHeader, Section, SectionHead } from "@/components/ui";
 import { governmentPartners, industryPartners, partnerNote } from "@/lib/content";
 import { partnerLogos } from "@/lib/assets";
 import { Logo } from "@/components/media";
+import { pages } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Our partners",
-  description:
-    "Government and industry partners: MSDE, NSDC, MoRD, state governments, Ashok Leyland, Tata Motors, Hyundai, Café Coffee Day and more.",
-};
+export const metadata: Metadata = pages.partners;
 
 function PartnerList({
   heading,

@@ -4,12 +4,9 @@ import { ButtonLink, PageHeader, Section, SectionHead } from "@/components/ui";
 import { actionLearning, org } from "@/lib/content";
 import { docs, facilityImages } from "@/lib/assets";
 import { Photo } from "@/components/media";
+import { pages } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Production & action learning",
-  description:
-    "Trainees learn by producing goods with real buyers, tolerances and deadlines — including aero engine components at an HAL-empanelled tool room.",
-};
+export const metadata: Metadata = pages.actionLearning;
 
 export default function ActionLearningPage() {
   return (

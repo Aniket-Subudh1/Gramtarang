@@ -11,12 +11,9 @@ import {
 import { ecosystem, enrolmentTotal, impactDetail, org, stats, verticalTotals } from "@/lib/content";
 import { ecosystemLogos, heroPrimary } from "@/lib/assets";
 import { Logo, Photo } from "@/components/media";
+import { pages } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "At a glance",
-  description:
-    "How Gram Tarang works: a ministry, a university and an operator, and what that has produced since 2006.",
-};
+export const metadata: Metadata = pages.about;
 
 export default function AboutPage() {
   return (

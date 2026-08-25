@@ -3,12 +3,9 @@ import Link from "next/link";
 import { Reveal } from "@/components/reveal";
 import { PageHeader, Section } from "@/components/ui";
 import { sectors } from "@/lib/content";
+import { pages } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Sectors & trades",
-  description:
-    "Every trade Gram Tarang runs, across manufacturing, apparel, automotive, retail and hospitality, healthcare and agriculture.",
-};
+export const metadata: Metadata = pages.sectors;
 
 const tradeCount = sectors.reduce((n, s) => n + s.trades.length, 0);
 

@@ -4,12 +4,9 @@ import { PageHeader, Section, SectionHead } from "@/components/ui";
 import { sixDimensions } from "@/lib/content";
 import { bhanu, methodDiagrams } from "@/lib/assets";
 import { Photo } from "@/components/media";
+import { pages } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Mission, vision & values",
-  description:
-    "To be a globally accredited human resource centre of excellence catalysing sustainable livelihoods in less developed markets.",
-};
+export const metadata: Metadata = pages.mission;
 
 const values = [
   {

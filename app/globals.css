@@ -33,9 +33,9 @@
   --color-line: #d3dae6;
   --color-line-strong: #b4bfd1;
 
-  --font-display: var(--font-archivo), "Archivo", system-ui, sans-serif;
-  --font-body: var(--font-source-serif), "Source Serif 4", Georgia, serif;
-  --font-mono: var(--font-plex-mono), "IBM Plex Mono", ui-monospace, monospace;
+  --font-display: var(--font-geo231), system-ui, sans-serif;
+  --font-body: var(--font-geo231), system-ui, sans-serif;
+  --font-mono: var(--font-geo231), ui-monospace, monospace;
 
   --breakpoint-xs: 30rem;
 }
@@ -120,6 +120,14 @@ p { text-wrap: pretty; }
   );
 }
 
+@utility rule-tick-dark {
+  background-image: repeating-linear-gradient(
+    to right,
+    var(--color-indigo-500) 0 1px,
+    transparent 1px 8px
+  );
+}
+
 /* --------------------------- signature: the scale bar ------------- */
 
 @keyframes tick-in {
@@ -157,6 +165,65 @@ p { text-wrap: pretty; }
 
 .reveal[data-shown="true"] {
   animation: reveal-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* --------------------------- landing hero ------------------------ */
+
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes hero-zoom {
+  from {
+    transform: scale(1.08);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.hero-rise {
+  opacity: 0;
+  animation: hero-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.hero-zoom {
+  animation: hero-zoom 1.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes sector-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.sector-fade {
+  animation: sector-fade 0.45s ease both;
+}
+
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.menu-panel {
+  animation: menu-in 0.22s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 /* --------------------------- marquee ------------------------------ */
@@ -203,7 +270,10 @@ p { text-wrap: pretty; }
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
-  .reveal { opacity: 1; }
+  .reveal,
+  .hero-rise {
+    opacity: 1;
+  }
 }
 
 /* --------------------------- print -------------------------------- */

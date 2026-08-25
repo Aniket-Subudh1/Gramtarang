@@ -4,12 +4,9 @@ import { ButtonLink, Note, PageHeader, Section, SectionHead } from "@/components
 import { careerPathing, methodPhases } from "@/lib/content";
 import { pedagogyProduction } from "@/lib/assets";
 import { Photo } from "@/components/media";
+import { pages } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Trainers & pedagogy",
-  description:
-    "Two hundred trainers, a shared curriculum, and third-party assessment at the end of every programme.",
-};
+export const metadata: Metadata = pages.trainers;
 
 const capability = [
   { figure: "200", label: "Trainers on staff" },

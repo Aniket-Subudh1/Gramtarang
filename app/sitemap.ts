@@ -1,35 +1,40 @@
 import type { MetadataRoute } from "next";
 import { sectors } from "@/lib/content";
-
-const base = process.env.NEXT_PUBLIC_SITE_URL ?? "https://gramtarang.org.in";
+import { siteUrl } from "@/lib/seo";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const routes = [
-    "",
-    "/about",
-    "/about/mission",
-    "/about/leadership",
-    "/about/trainers",
-    "/about/centres",
-    "/services",
-    "/services/skill-training",
-    "/services/workforce-solutions",
-    "/services/action-learning",
-    "/services/apprenticeship",
-    "/sectors",
-    "/partners",
-    "/recognition/awards",
-    "/recognition/success-stories",
-    "/careers",
-    "/contact",
-    "/privacy",
-    ...sectors.map((s) => `/sectors/${s.slug}`),
+  const now = new Date();
+
+  const ranked: { path: string; priority: number; changeFrequency: MetadataRoute.Sitemap[0]["changeFrequency"] }[] = [
+    { path: "", priority: 1, changeFrequency: "weekly" },
+    { path: "/about", priority: 0.9, changeFrequency: "monthly" },
+    { path: "/sectors", priority: 0.9, changeFrequency: "monthly" },
+    { path: "/services", priority: 0.9, changeFrequency: "monthly" },
+    { path: "/contact", priority: 0.9, changeFrequency: "monthly" },
+    { path: "/partners", priority: 0.8, changeFrequency: "monthly" },
+    { path: "/services/skill-training", priority: 0.8, changeFrequency: "monthly" },
+    { path: "/services/workforce-solutions", priority: 0.8, changeFrequency: "monthly" },
+    { path: "/services/action-learning", priority: 0.7, changeFrequency: "monthly" },
+    { path: "/services/apprenticeship", priority: 0.7, changeFrequency: "monthly" },
+    { path: "/about/centres", priority: 0.7, changeFrequency: "monthly" },
+    { path: "/about/mission", priority: 0.6, changeFrequency: "yearly" },
+    { path: "/about/leadership", priority: 0.6, changeFrequency: "yearly" },
+    { path: "/about/trainers", priority: 0.6, changeFrequency: "yearly" },
+    { path: "/recognition/awards", priority: 0.6, changeFrequency: "yearly" },
+    { path: "/recognition/success-stories", priority: 0.7, changeFrequency: "monthly" },
+    { path: "/careers", priority: 0.6, changeFrequency: "monthly" },
+    { path: "/privacy", priority: 0.2, changeFrequency: "yearly" },
+    ...sectors.map((s) => ({
+      path: `/sectors/${s.slug}`,
+      priority: 0.8,
+      changeFrequency: "monthly" as const,
+    })),
   ];
 
-  return routes.map((route) => ({
-    url: `${base}${route}`,
-    lastModified: new Date(),
-    changeFrequency: route === "" ? "weekly" : "monthly",
-    priority: route === "" ? 1 : 0.7,
+  return ranked.map((route) => ({
+    url: `${siteUrl}${route.path}`,
+    lastModified: now,
+    changeFrequency: route.changeFrequency,
+    priority: route.priority,
   }));
 }

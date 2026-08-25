@@ -4,12 +4,9 @@ import { PageHeader, Section } from "@/components/ui";
 import { leadership } from "@/lib/content";
 import { leaderPortraits } from "@/lib/assets";
 import { Photo } from "@/components/media";
+import { pages } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Executive leadership",
-  description:
-    "The co-founders and executive team behind Gram Tarang and Centurion University.",
-};
+export const metadata: Metadata = pages.leadership;
 
 export default function LeadershipPage() {
   return (

@@ -54,8 +54,12 @@ export function SectionHead({
           {eyebrow}
         </p>
       )}
+      <span
+        aria-hidden
+        className={`mt-4 block h-px w-10 ${tone === "light" ? "bg-turmeric/80" : "bg-madder"}`}
+      />
       <h2
-        className={`mt-4 text-3xl font-bold md:text-[2.6rem] ${
+        className={`mt-5 text-3xl font-bold md:text-[2.6rem] ${
           tone === "light" ? "text-white" : "text-ink"
         }`}
       >
@@ -87,7 +91,8 @@ export function PageHeader({
     <header className="border-b border-line bg-white">
       <div className="shell py-16 md:py-24">
         <p className="eyebrow text-madder">{eyebrow}</p>
-        <h1 className="mt-5 max-w-4xl text-4xl font-extrabold leading-[1.02] tracking-[-0.03em] md:text-[4rem]">
+        <span aria-hidden className="mt-5 block h-px w-10 bg-madder" />
+        <h1 className="mt-6 max-w-4xl text-4xl font-extrabold leading-[1.02] tracking-[-0.03em] md:text-[4rem]">
           {title}
         </h1>
         {lede && (
@@ -118,11 +123,11 @@ export function ButtonLink({
     solid:
       "bg-indigo-900 text-white hover:bg-madder border border-transparent",
     outline:
-      "bg-transparent text-ink border border-ink/25 hover:border-ink hover:bg-white",
+      "bg-transparent text-ink border border-ink/20 hover:border-ink hover:bg-white",
     light: "bg-white text-indigo-900 hover:bg-turmeric border border-transparent",
   } as const;
 
-  const cls = `inline-flex items-center gap-2 px-6 py-3.5 font-display text-[0.9rem] font-semibold tracking-tight transition-colors ${styles[variant]}`;
+  const cls = `inline-flex items-center gap-2 px-6 py-3.5 font-display text-[0.88rem] font-semibold tracking-tight transition-colors duration-200 ${styles[variant]}`;
 
   if (external) {
     return (
@@ -237,7 +242,7 @@ export function Card({
 }) {
   return (
     <div
-      className={`border border-line bg-white p-7 transition-colors hover:border-line-strong md:p-8 ${className}`}
+      className={`border border-line bg-white p-7 transition-[border-color,box-shadow] duration-200 hover:border-line-strong hover:shadow-[0_18px_40px_-28px_rgba(16,22,37,0.35)] md:p-8 ${className}`}
     >
       {children}
     </div>

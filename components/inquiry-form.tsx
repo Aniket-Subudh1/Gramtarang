@@ -75,7 +75,7 @@ export function InquiryForm({ defaultType }: { defaultType?: string }) {
   }
 
   return (
-    <form onSubmit={onSubmit} className="border border-line bg-white p-6 md:p-8">
+    <form onSubmit={onSubmit} className="relative border border-line bg-white p-6 shadow-[0_18px_40px_-32px_rgba(16,22,37,0.28)] md:p-9">
       <fieldset className="mb-7">
         <legend className={labelClass}>What is this about?</legend>
         <div className="mt-3 grid gap-2 sm:grid-cols-2">

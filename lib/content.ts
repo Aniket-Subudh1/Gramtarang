@@ -34,8 +34,8 @@ export const org = {
 
 export const hero = {
   eyebrow: "Social enterprise · Skilling since 2006",
-  headline: ["Skills that hold,", "in the places", "jobs don't reach."],
-  lede: "We train school dropouts, tribal youth and first-generation earners from rural Odisha, Andhra Pradesh, Assam and Jharkhand for skilled work in manufacturing, apparel, automotive, agriculture and healthcare — then place them, and keep in touch after they start.",
+  headline: ["Skills that hold", "where jobs don't reach."],
+  lede: "We train young people from India's least-served districts for real work in the organised sector — then place them, and stay with them after they start.",
   primaryCta: { label: "Start an inquiry", href: "/contact" },
   secondaryCta: { label: "See what we teach", href: "/sectors" },
 };

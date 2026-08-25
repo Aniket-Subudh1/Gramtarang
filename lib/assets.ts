@@ -52,10 +52,18 @@ export const heroSlides: (Img & { caption: string; href: string })[] = [
 ];
 
 export const heroPrimary: Img = {
-  src: "/images/hero/intro.webp",
-  w: 1800,
-  h: 820,
-  alt: "Trainees and instructors on a Gram Tarang workshop floor",
+  src: "/images/hero/workshop-2026.webp",
+  w: 1536,
+  h: 1024,
+  alt: "Trainees at work on a vocational workshop floor",
+};
+
+/** Atmospheric photograph for the home-page story panel. Not a portrait of a named person. */
+export const storyAtmosphere: Img = {
+  src: "/images/stories/cafe-counter-2026.webp",
+  w: 1024,
+  h: 1536,
+  alt: "A brewmaster at work on a café espresso bar",
 };
 
 /** Bhanu, from Khorda, placed at Shahi Exports in Bangalore. */
@@ -68,37 +76,52 @@ export const bhanu: Img = {
 
 export const sectorImages: Record<string, Img> = {
   manufacturing: {
-    src: "/images/sectors/manufacturing.webp",
-    w: 1400,
-    h: 900,
-    alt: "CNC lathe and milling machines in the manufacturing workshop",
+    src: "/images/sectors/manufacturing-2026.webp",
+    w: 1536,
+    h: 1024,
+    alt: "A machinist operating a CNC lathe in the manufacturing workshop",
   },
   "apparel-textiles": {
-    src: "/images/sectors/apparel-textiles.webp",
-    w: 1400,
-    h: 900,
-    alt: "An industrial sewing line under the DDU-GKY programme",
+    src: "/images/sectors/apparel-textiles-2026.webp",
+    w: 1536,
+    h: 1024,
+    alt: "Trainees at industrial sewing machines on a garment production line",
   },
   automotive: {
-    src: "/images/sectors/automotive.webp",
-    w: 1400,
-    h: 900,
-    alt: "Two-wheeler service technicians working on a motorcycle",
+    src: "/images/sectors/automotive-2026.webp",
+    w: 1536,
+    h: 1024,
+    alt: "Service technicians working on a motorcycle in the automotive workshop",
   },
   "retail-hospitality": {
-    src: "/images/sectors/retail-hospitality.webp",
-    w: 1400,
-    h: 900,
-    alt: "A Gram Tarang trainee preparing coffee as a Café Coffee Day brewmaster",
+    src: "/images/sectors/retail-hospitality-2026.webp",
+    w: 1536,
+    h: 1024,
+    alt: "A brewmaster steaming milk at a café training bar",
   },
-  // healthcare, bfsi and beauty-wellness are deliberately absent: the media
-  // library has no photograph of them, and the sector cards render a
-  // typographic panel rather than borrow an unrelated image.
+  healthcare: {
+    src: "/images/sectors/healthcare-2026.webp",
+    w: 1536,
+    h: 1024,
+    alt: "A medical lab technician at a microscope in a training laboratory",
+  },
   agriculture: {
-    src: "/images/sectors/agriculture.webp",
-    w: 1400,
-    h: 900,
-    alt: "Field assessment under the Agri RPL project in Odisha",
+    src: "/images/sectors/agriculture-2026.webp",
+    w: 1536,
+    h: 1024,
+    alt: "Field assessment with farming households in rural Odisha",
+  },
+  bfsi: {
+    src: "/images/sectors/bfsi-2026.webp",
+    w: 1536,
+    h: 1024,
+    alt: "A business correspondent helping a customer in a rural banking kiosk",
+  },
+  "beauty-wellness": {
+    src: "/images/sectors/beauty-wellness-2026.webp",
+    w: 1536,
+    h: 1024,
+    alt: "A beauty therapist trainee practising in a salon classroom",
   },
 };
 
@@ -227,10 +250,10 @@ export const facilityImages = {
     alt: "The Mini Tool Room & Training Centre",
   })) satisfies Img[],
   trainingFloor: {
-    src: "/images/facilities/training-floor.webp",
-    w: 900,
-    h: 700,
-    alt: "A live production training floor",
+    src: "/images/facilities/training-floor-2026.webp",
+    w: 1536,
+    h: 1024,
+    alt: "An instructor teaching a trainee on the workshop floor",
   } satisfies Img,
   ashokLeyland: {
     src: "/images/facilities/ashok-leyland.webp",

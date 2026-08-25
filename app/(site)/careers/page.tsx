@@ -5,12 +5,9 @@ import { InquiryForm } from "@/components/inquiry-form";
 import { careers, centreGroups } from "@/lib/content";
 import { facilityImages } from "@/lib/assets";
 import { Photo } from "@/components/media";
+import { pages } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Careers",
-  description:
-    "Trainers, mobilisers, placement officers and centre managers across Odisha, Andhra Pradesh, Assam and Jharkhand.",
-};
+export const metadata: Metadata = pages.careers;
 
 const states = [
   ...new Set(centreGroups.flatMap((g) => g.centres.map((c) => c.state))),

@@ -4,12 +4,9 @@ import { ButtonLink, PageHeader, Section, SectionHead } from "@/components/ui";
 import { awards, recognitionNotes } from "@/lib/content";
 import { awardImages } from "@/lib/assets";
 import { Photo } from "@/components/media";
+import { pages } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Awards",
-  description:
-    "NAAC 'A' grade, NSDC best performer, FICCI Skills Champion of India, and other recognition.",
-};
+export const metadata: Metadata = pages.awards;
 
 export default function AwardsPage() {
   return (

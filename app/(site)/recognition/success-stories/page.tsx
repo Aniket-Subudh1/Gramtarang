@@ -4,12 +4,9 @@ import { ButtonLink, PageHeader, Section } from "@/components/ui";
 import { stories } from "@/lib/content";
 import { storyPortraits } from "@/lib/assets";
 import { Photo } from "@/components/media";
+import { pages } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Success stories",
-  description:
-    "What happened to some of the people who trained with Gram Tarang, in their districts and after.",
-};
+export const metadata: Metadata = pages.stories;
 
 export default function StoriesPage() {
   return (

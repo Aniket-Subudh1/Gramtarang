@@ -2,12 +2,9 @@ import type { Metadata } from "next";
 import { PageHeader, Section, SectionHead } from "@/components/ui";
 import { InquiryForm } from "@/components/inquiry-form";
 import { centreGroups, org } from "@/lib/content";
+import { pages } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Contact us",
-  description:
-    "Get in touch about a course, a hiring requirement, a partnership or a job at Gram Tarang.",
-};
+export const metadata: Metadata = pages.contact;
 
 export default function ContactPage() {
   return (

@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
 import { PageHeader, Section } from "@/components/ui";
 import { org } from "@/lib/content";
+import { pages } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Privacy",
-  description: "What we do with the details you send through the inquiry form.",
-};
+export const metadata: Metadata = pages.privacy;
 
 export default function PrivacyPage() {
   return (

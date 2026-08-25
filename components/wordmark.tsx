@@ -2,17 +2,25 @@ import NextImage from "next/image";
 import { brand } from "@/lib/assets";
 
 /**
- * The organisation's own logo. On the dark footer it sits on a light
+ * The organisation's own logo. On a dark ground it sits on a light
  * tile, because the mark is coloured artwork on a transparent ground
  * and inverting it would misrepresent the brand.
  */
-export function Wordmark({ tone = "dark" }: { tone?: "dark" | "light" }) {
+export function Wordmark({
+  tone = "dark",
+  compact = false,
+}: {
+  tone?: "dark" | "light";
+  compact?: boolean;
+}) {
+  const height = compact ? 34 : 40;
+
   return (
     <span className="flex items-center gap-3">
       <span
         className={
           tone === "light"
-            ? "flex items-center justify-center bg-white px-2.5 py-2"
+            ? "flex items-center justify-center bg-white px-2 py-1.5"
             : "flex items-center"
         }
       >
@@ -22,13 +30,15 @@ export function Wordmark({ tone = "dark" }: { tone?: "dark" | "light" }) {
           width={brand.lockup.w}
           height={brand.lockup.h}
           priority
-          style={{ height: 42, width: "auto" }}
+          style={{ height, width: "auto" }}
         />
       </span>
 
       <span className="hidden flex-col leading-none sm:flex">
         <span
-          className="font-display text-[1.02rem] font-extrabold tracking-[-0.03em]"
+          className={`font-display font-extrabold tracking-[-0.03em] ${
+            compact ? "text-[0.98rem]" : "text-[1.05rem]"
+          }`}
           style={{ color: tone === "light" ? "#ffffff" : "#101625" }}
         >
           Gram Tarang

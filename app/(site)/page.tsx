@@ -1,28 +1,21 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+import { pages } from "@/lib/seo";
 import { ScaleBar } from "@/components/scale-bar";
 import { Reveal } from "@/components/reveal";
 import { Photo, Logo } from "@/components/media";
-import {
-  ButtonLink,
-  Card,
-  LogoMarquee,
-  Section,
-  SectionHead,
-  StatGrid,
-} from "@/components/ui";
+import { ButtonLink, LogoMarquee, Section, SectionHead } from "@/components/ui";
 import { InquiryForm } from "@/components/inquiry-form";
+import { SectorPreview } from "@/components/sector-preview";
 import {
-  ecosystem,
   governmentPartners,
   hero,
   industryPartners,
   methodPhases,
   org,
   sectors,
-  services,
   stats,
   stories,
-  workforceSolutions,
 } from "@/lib/content";
 import {
   ecosystemLogos,
@@ -30,170 +23,283 @@ import {
   heroPrimary,
   partnerLogos,
   sectorImages,
+  storyAtmosphere,
   storyPortraits,
-  workforceImages,
 } from "@/lib/assets";
+
+export const metadata: Metadata = pages.home;
 
 const govLogos = governmentPartners
   .map((p) => partnerLogos[p.slug])
   .filter(Boolean);
 const indLogos = industryPartners.map((p) => partnerLogos[p.slug]).filter(Boolean);
 
+const methodSteps = methodPhases.flatMap((phase) => phase.steps);
+
+const featuredStory = stories.find((s) => s.name === "Gurudev Hansdah") ?? stories[0];
+const featuredPortrait = storyPortraits[featuredStory.name];
+
+const routes = [
+  {
+    who: "Looking for a trade",
+    what: "Six sectors. Every course we run.",
+    href: "/sectors",
+    image: sectorImages.manufacturing,
+  },
+  {
+    who: "Hiring a workforce",
+    what: "Recruitment, payrolling, compliance.",
+    href: "/services/workforce-solutions",
+    image: sectorImages.automotive,
+  },
+  {
+    who: "Funding a programme",
+    what: "How we structure and certify.",
+    href: "/partners",
+    image: sectorImages.agriculture,
+  },
+];
+
 export default function HomePage() {
   return (
     <>
-      {/* ------------------------------ hero ------------------------ */}
-      <section className="border-b border-line bg-white">
-        <div className="shell pb-12 pt-16 md:pt-24">
-          <div className="grid gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16">
-            <div>
-              <p className="eyebrow text-madder">{hero.eyebrow}</p>
-              <h1 className="mt-6 text-[2.75rem] font-extrabold leading-[0.98] tracking-[-0.035em] sm:text-6xl xl:text-[4.5rem]">
-                {hero.headline.map((line, i) => (
-                  <span key={line} className="block">
-                    {i === hero.headline.length - 1 ? (
-                      <span className="text-indigo-700">{line}</span>
-                    ) : (
-                      line
-                    )}
-                  </span>
-                ))}
-              </h1>
-              <p className="mt-8 max-w-2xl text-lg leading-relaxed text-slate md:text-xl">
-                {hero.lede}
-              </p>
-              <div className="mt-9 flex flex-wrap gap-3">
-                <ButtonLink href={hero.primaryCta.href}>
-                  {hero.primaryCta.label}
-                </ButtonLink>
-                <ButtonLink href={hero.secondaryCta.href} variant="outline">
-                  {hero.secondaryCta.label}
-                </ButtonLink>
-              </div>
-            </div>
-
-            {/* three routes in, because three different people arrive here */}
-            <div className="self-end border-t border-line pt-6 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-0">
-              <p className="eyebrow text-mist">Who are you?</p>
-              <ul className="mt-4 divide-y divide-[--color-line]">
-                {[
-                  {
-                    who: "A young person looking for a trade",
-                    href: "/sectors",
-                    what: "See the six sectors and every trade we run",
-                  },
-                  {
-                    who: "An employer who needs people",
-                    href: "/services/workforce-solutions",
-                    what: "Recruitment, payrolling and compliance",
-                  },
-                  {
-                    who: "A government or CSR partner",
-                    href: "/partners",
-                    what: "How our programmes are structured and certified",
-                  },
-                ].map((row) => (
-                  <li key={row.href}>
-                    <Link
-                      href={row.href}
-                      className="group flex items-start justify-between gap-4 py-4 transition-colors hover:text-indigo-700"
-                    >
-                      <span>
-                        <span className="block font-display text-[1.02rem] font-semibold tracking-tight">
-                          {row.who}
-                        </span>
-                        <span className="mt-0.5 block font-body text-[0.88rem] text-slate">
-                          {row.what}
-                        </span>
-                      </span>
-                      <span
-                        aria-hidden
-                        className="mt-1 shrink-0 text-madder transition-transform group-hover:translate-x-1"
-                      >
-                        →
-                      </span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        {/* full-bleed photograph of the thing itself */}
-        <div className="relative">
+      <section className="relative isolate -mt-18 min-h-svh overflow-hidden bg-indigo-900 text-white">
+        <div className="absolute inset-0 hero-zoom">
           <Photo
             img={heroPrimary}
             priority
             sizes="100vw"
-            className="h-[300px] w-full md:h-[440px]"
-          />
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0 bg-gradient-to-t from-indigo-900/45 via-indigo-900/10 to-transparent"
+            className="h-full w-full"
           />
         </div>
+        <div
+          aria-hidden
+          className="absolute inset-0 bg-linear-to-r from-indigo-900/88 via-indigo-900/55 to-indigo-900/15"
+        />
+        <div
+          aria-hidden
+          className="absolute inset-0 bg-linear-to-t from-indigo-900 via-indigo-900/20 to-indigo-900/35"
+        />
 
-        {/* ---------------------- the measure (signature) ----------- */}
-        <div className="shell py-12">
-          <ScaleBar />
+        <div className="shell relative flex min-h-svh flex-col justify-end pb-10 pt-32 md:pb-14 md:pt-36">
+          <p
+            className="hero-rise eyebrow text-turmeric"
+            style={{ animationDelay: "80ms" }}
+          >
+            {hero.eyebrow}
+          </p>
+          <span
+            aria-hidden
+            className="hero-rise mt-4 block h-px w-10 bg-turmeric"
+            style={{ animationDelay: "120ms" }}
+          />
+
+          <h1
+            className="hero-rise mt-5 max-w-4xl font-display text-[clamp(2.6rem,7.2vw,6.25rem)] font-extrabold leading-[0.9] tracking-[-0.045em]"
+            style={{ animationDelay: "160ms" }}
+          >
+            {hero.headline.map((line) => (
+              <span key={line} className="block">
+                {line}
+              </span>
+            ))}
+          </h1>
+
+          <p
+            className="hero-rise mt-7 max-w-xl text-base leading-relaxed text-indigo-100 md:text-lg"
+            style={{ animationDelay: "320ms" }}
+          >
+            {hero.lede}
+          </p>
+
+          <div
+            className="hero-rise mt-9 flex flex-wrap gap-3"
+            style={{ animationDelay: "440ms" }}
+          >
+            <ButtonLink href={hero.primaryCta.href} variant="light">
+              {hero.primaryCta.label}
+            </ButtonLink>
+            <Link
+              href={hero.secondaryCta.href}
+              className="inline-flex items-center gap-2 border border-white/35 px-6 py-3.5 font-display text-[0.9rem] font-semibold tracking-tight text-white transition-colors hover:border-white hover:bg-white/10"
+            >
+              {hero.secondaryCta.label}
+              <span aria-hidden>→</span>
+            </Link>
+          </div>
+
+          <dl
+            className="hero-rise mt-14 grid grid-cols-2 gap-px border-t border-white/15 pt-8 sm:grid-cols-4"
+            style={{ animationDelay: "560ms" }}
+          >
+            {stats.map((item) => (
+              <div key={item.label} className="pr-4">
+                <dt className="eyebrow text-indigo-200">{item.label}</dt>
+                <dd className="mt-2 font-display text-2xl font-extrabold tracking-[-0.03em] text-white md:text-3xl">
+                  {item.value}
+                </dd>
+              </div>
+            ))}
+          </dl>
         </div>
       </section>
 
-      {/* ------------------------------ stats ---------------------- */}
-      <Section tone="chalk" className="!py-16">
-        <StatGrid items={stats} />
+      <Section tone="white" className="py-16! md:py-20!">
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:items-end lg:gap-16">
+          <Reveal>
+            <p className="eyebrow text-madder">The measure</p>
+            <span aria-hidden className="mt-4 block h-px w-10 bg-madder" />
+            <h2 className="mt-5 text-3xl font-bold md:text-[2.4rem]">
+              Twenty years, one rising line.
+            </h2>
+            <p className="mt-5 max-w-md text-[0.95rem] leading-relaxed text-slate">
+              From 263 trainees in our first year to over a lakh a year now —
+              mostly school dropouts, tribal youth and first-generation earners.
+            </p>
+          </Reveal>
+          <ScaleBar />
+        </div>
       </Section>
 
-      {/* ------------------------------ sectors -------------------- */}
-      <Section tone="white" id="sectors">
+      <Section tone="chalk" id="sectors">
         <SectionHead
           eyebrow="What we teach"
-          title="Six sectors, one standard."
-          lede="Every trade is aligned to a national occupational standard, taught on the equipment the job actually uses, and assessed by an independent body — a sector skill council, NCVT, or Centurion University."
+          title="Six sectors. One standard."
+          lede="Every trade is aligned to a national occupational standard, taught on the equipment the job uses, and assessed independently."
         />
+        <div className="mt-12 md:mt-16">
+          <SectorPreview sectors={sectors} />
+        </div>
+        <div className="mt-10">
+          <ButtonLink href="/sectors" variant="outline">
+            All trades
+          </ButtonLink>
+        </div>
+      </Section>
 
-        <ul className="mt-14 grid gap-px border border-line bg-line md:grid-cols-2 xl:grid-cols-3">
-          {sectors.map((sector, i) => (
-            <Reveal as="li" key={sector.slug} delay={i * 60} className="bg-white">
-              <Link
-                href={`/sectors/${sector.slug}`}
-                className="group flex h-full flex-col transition-colors hover:bg-indigo-50"
-              >
-                {sectorImages[sector.slug] ? (
+      <Section tone="white">
+        <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
+          <div>
+            <SectionHead
+              eyebrow="How we teach"
+              title="Six steps, in order."
+              lede="Nobody touches a production machine before they have watched the job done. Nobody is certified by us alone."
+            />
+            <Photo
+              img={facilityImages.trainingFloor}
+              ratio="4/3"
+              sizes="(max-width: 1024px) 100vw, 40vw"
+              className="mt-10 w-full"
+            />
+          </div>
+          <ol className="divide-y divide-[--color-line] border-y border-line">
+            {methodSteps.map((step, i) => (
+              <Reveal as="li" key={step.n} delay={i * 50} className="py-6">
+                <div className="flex gap-5 md:gap-7">
+                  <span className="font-mono text-[0.75rem] font-medium text-madder">
+                    {String(step.n).padStart(2, "0")}
+                  </span>
+                  <div>
+                    <h3 className="font-display text-xl font-semibold tracking-tight">
+                      {step.title}
+                    </h3>
+                    <p className="mt-2 max-w-xl text-[0.95rem] leading-relaxed text-slate">
+                      {step.body}
+                    </p>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </ol>
+        </div>
+        <div className="mt-12">
+          <ButtonLink href="/services/skill-training" variant="outline">
+            The full methodology
+          </ButtonLink>
+        </div>
+      </Section>
+
+      <section className="relative isolate overflow-hidden bg-indigo-900 text-white">
+        <div className="grid lg:grid-cols-2">
+          <div className="relative min-h-88 lg:min-h-144">
+            <Photo
+              img={storyAtmosphere}
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              className="absolute inset-0 h-full w-full"
+            />
+            <div
+              aria-hidden
+              className="absolute inset-0 bg-linear-to-t from-indigo-900 via-transparent to-transparent lg:bg-linear-to-r lg:from-transparent lg:via-transparent lg:to-indigo-900/75"
+            />
+          </div>
+          <div className="shell flex flex-col justify-center py-16 md:py-24 lg:max-w-none lg:px-16 xl:px-24">
+            <Reveal>
+              <p className="eyebrow text-turmeric">{featuredStory.trade}</p>
+              <blockquote className="mt-6 font-display text-3xl font-bold leading-[1.1] tracking-[-0.03em] md:text-4xl">
+                “{featuredStory.quote}”
+              </blockquote>
+              <p className="mt-6 max-w-lg text-[1.02rem] leading-relaxed text-indigo-100">
+                {featuredStory.body.split(". ").slice(0, 3).join(". ")}.
+              </p>
+              <footer className="mt-8 flex items-center gap-4">
+                {featuredPortrait ? (
                   <Photo
-                    img={sectorImages[sector.slug]}
-                    ratio="16/10"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-                    className="w-full"
+                    img={featuredPortrait}
+                    ratio="1/1"
+                    sizes="56px"
+                    className="h-14 w-14 shrink-0 rounded-full"
                   />
-                ) : (
-                  <span
-                    aria-hidden
-                    className="flex items-center justify-center bg-indigo-900 font-display text-5xl font-extrabold tracking-[-0.05em] text-indigo-500"
-                    style={{ aspectRatio: "16/10" }}
-                  >
-                    {sector.code}
+                ) : null}
+                <span>
+                  <span className="block font-display text-lg font-semibold">
+                    {featuredStory.name}
                   </span>
-                )}
-                <span className="flex flex-1 flex-col p-7 md:p-8">
-                  <span className="eyebrow text-madder">{sector.code}</span>
-                  <h3 className="mt-3 text-2xl font-bold">{sector.name}</h3>
-                  <span className="mt-3 block flex-1 text-[0.95rem] leading-relaxed text-slate">
-                    {sector.blurb}
+                  <span className="mt-1 block font-mono text-[0.7rem] uppercase tracking-[0.14em] text-indigo-200">
+                    {featuredStory.from}
                   </span>
-                  <span className="mt-6 block font-mono text-[0.7rem] uppercase tracking-[0.12em] text-mist">
-                    {sector.trades.length} trades
-                    {sector.enrolments
-                      ? ` · ${sector.enrolments.toLocaleString("en-IN")} trained`
-                      : ""}
-                    {sector.placement ? ` · ${sector.placement} placed` : ""}
+                </span>
+              </footer>
+              <div className="mt-10">
+                <ButtonLink href="/recognition/success-stories" variant="light">
+                  More stories
+                </ButtonLink>
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      <Section tone="chalk">
+        <SectionHead
+          eyebrow="Start here"
+          title="Three ways in."
+          lede="Tell us who you are. We will take it from there."
+        />
+        <ul className="mt-12 grid gap-4 md:grid-cols-3">
+          {routes.map((row, i) => (
+            <Reveal as="li" key={row.href} delay={i * 70}>
+              <Link
+                href={row.href}
+                className="group relative flex min-h-72 flex-col justify-end overflow-hidden bg-indigo-900 text-white"
+              >
+                <Photo
+                  img={row.image}
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="absolute inset-0 h-full w-full transition-transform duration-700 group-hover:scale-105"
+                />
+                <div
+                  aria-hidden
+                  className="absolute inset-0 bg-linear-to-t from-indigo-900 via-indigo-900/45 to-transparent"
+                />
+                <span className="relative p-6 md:p-7">
+                  <span className="block font-display text-2xl font-bold tracking-tight">
+                    {row.who}
                   </span>
-                  <span className="mt-2 block font-display text-[0.88rem] font-semibold text-indigo-700">
-                    <span className="underline-offset-4 group-hover:underline">
-                      See the trades
-                    </span>{" "}
-                    <span aria-hidden>→</span>
+                  <span className="mt-2 block text-[0.92rem] text-indigo-100">
+                    {row.what}
+                  </span>
+                  <span className="mt-5 inline-flex text-turmeric transition-transform duration-300 group-hover:translate-x-1">
+                    →
                   </span>
                 </span>
               </Link>
@@ -202,239 +308,41 @@ export default function HomePage() {
         </ul>
       </Section>
 
-      {/* ------------------------------ method --------------------- */}
-      <Section tone="chalk">
-        <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
-          <div className="lg:sticky lg:top-28 lg:self-start">
-            <SectionHead
-              eyebrow="How we teach"
-              title="Six steps, in order."
-              lede="The sequence matters. Nobody touches a production machine before they have watched the job done, and nobody is certified by us alone."
-            />
-            <Photo
-              img={facilityImages.trainingFloor}
-              ratio="4/3"
-              sizes="(max-width: 1024px) 100vw, 40vw"
-              className="mt-9 w-full"
-            />
-            <div className="mt-8">
-              <ButtonLink href="/services/skill-training" variant="outline">
-                The full methodology
-              </ButtonLink>
-            </div>
-          </div>
-
-          <ol className="space-y-10">
-            {methodPhases.map((phase) => (
-              <li key={phase.phase}>
-                <div className="flex items-baseline gap-3 border-b border-line-strong pb-2">
-                  <span className="eyebrow text-madder">{phase.phase}</span>
-                  <span className="font-display text-[0.95rem] font-semibold tracking-tight">
-                    {phase.name}
-                  </span>
-                </div>
-                <ul className="mt-5 space-y-5">
-                  {phase.steps.map((step, i) => (
-                    <Reveal as="li" key={step.n} delay={i * 60}>
-                      <div className="flex gap-5">
-                        <span className="mt-1 flex h-8 w-8 shrink-0 items-center justify-center border border-ink/20 font-mono text-[0.75rem] font-medium">
-                          {String(step.n).padStart(2, "0")}
-                        </span>
-                        <div>
-                          <h3 className="font-display text-lg font-semibold tracking-tight">
-                            {step.title}
-                          </h3>
-                          <p className="mt-1.5 text-[0.95rem] leading-relaxed text-slate">
-                            {step.body}
-                          </p>
-                        </div>
-                      </div>
-                    </Reveal>
-                  ))}
-                </ul>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </Section>
-
-      {/* ------------------------------ ecosystem ------------------ */}
-      <Section tone="indigo">
-        <SectionHead
-          tone="light"
-          eyebrow="How it holds together"
-          title="A ministry, a university and an operator."
-          lede="Skilling at this scale needs policy, a qualifications framework and someone who can actually run a centre in Rayagada. The model splits those three jobs cleanly."
-        />
-        <div className="mt-14 grid gap-px border border-indigo-700 bg-indigo-700 lg:grid-cols-3">
-          {ecosystem.map((part, i) => (
-            <Reveal key={part.name} delay={i * 80} className="bg-indigo-900 p-8">
-              {ecosystemLogos[part.name] && (
-                <span className="mb-6 inline-flex items-center justify-center bg-white px-4 py-3">
-                  <Logo img={ecosystemLogos[part.name]} height={38} />
-                </span>
-              )}
-              <p className="eyebrow text-turmeric">{part.role}</p>
-              <h3 className="mt-3 text-xl font-bold text-white">{part.name}</h3>
-              <ul className="mt-5 space-y-3">
-                {part.points.map((point) => (
-                  <li
-                    key={point}
-                    className="flex gap-3 text-[0.9rem] leading-relaxed text-indigo-200"
-                  >
-                    <span aria-hidden className="mt-2 h-px w-3 shrink-0 bg-indigo-500" />
-                    {point}
-                  </li>
-                ))}
-              </ul>
-            </Reveal>
-          ))}
-        </div>
-      </Section>
-
-      {/* ------------------------------ services ------------------- */}
       <Section tone="white">
-        <SectionHead eyebrow="What we do" title="Four ways to work with us." />
-        <div className="mt-12 grid gap-6 md:grid-cols-2">
-          {services.map((service, i) => (
-            <Reveal key={service.slug} delay={i * 60}>
-              <Card className="flex h-full flex-col">
-                <h3 className="text-xl font-bold">{service.name}</h3>
-                <p className="mt-3 flex-1 text-[0.95rem] leading-relaxed text-slate">
-                  {service.summary}
-                </p>
-                <Link
-                  href={service.href}
-                  className="mt-6 font-display text-[0.88rem] font-semibold text-indigo-700 underline-offset-4 hover:underline"
-                >
-                  Read more <span aria-hidden>→</span>
-                </Link>
-              </Card>
-            </Reveal>
-          ))}
-        </div>
-      </Section>
-
-      {/* ------------------------------ workforce ------------------ */}
-      <Section tone="indigo-soft">
-        <div className="grid gap-12 lg:grid-cols-[1fr_1fr] lg:gap-20">
-          <div>
-            <SectionHead
-              eyebrow="For employers"
-              title="Hire people we already trained."
-              lede={workforceSolutions.intro}
-            />
-            <Photo
-              img={workforceImages.recruitment}
-              ratio="16/9"
-              sizes="(max-width: 1024px) 100vw, 45vw"
-              className="mt-9 w-full"
-            />
-            <div className="mt-8">
-              <ButtonLink href="/services/workforce-solutions">
-                Workforce solutions
-              </ButtonLink>
-            </div>
-          </div>
-          <dl className="divide-y divide-[--color-line]">
-            {workforceSolutions.offerings.map((item) => (
-              <div key={item.name} className="py-6 first:pt-0 last:pb-0">
-                <dt className="font-display text-lg font-semibold tracking-tight">
-                  {item.name}
-                </dt>
-                <dd className="mt-2 text-[0.95rem] leading-relaxed text-slate">
-                  {item.body}
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-      </Section>
-
-      {/* ------------------------------ partners ------------------- */}
-      <Section tone="chalk">
         <SectionHead
           eyebrow="Who we work with"
           title="Governments fund it. Industry hires from it."
-          align="center"
         />
-        <div className="mt-12 space-y-4">
+        <div className="mt-10 flex flex-wrap items-center gap-x-10 gap-y-6">
+          {Object.entries(ecosystemLogos).map(([name, img]) => (
+            <span key={name} className="flex items-center gap-3">
+              <span className="flex items-center justify-center bg-chalk px-3 py-2">
+                <Logo img={img} height={36} />
+              </span>
+              <span className="hidden font-display text-[0.85rem] font-medium text-slate sm:inline">
+                {name}
+              </span>
+            </span>
+          ))}
+        </div>
+        <div className="mt-12 space-y-3">
           <LogoMarquee items={govLogos} />
           <LogoMarquee items={indLogos} />
         </div>
-        <div className="mt-10 text-center">
+        <div className="mt-10">
           <ButtonLink href="/partners" variant="outline">
             All partners
           </ButtonLink>
         </div>
       </Section>
 
-      {/* ------------------------------ stories -------------------- */}
-      <Section tone="white">
-        <SectionHead
-          eyebrow="Who it is for"
-          title="One person at a time, which is the only way it works."
-        />
-        <ul className="mt-14 grid gap-px border border-line bg-line md:grid-cols-3">
-          {stories.slice(0, 3).map((story, i) => {
-            const portrait = storyPortraits[story.name];
-            return (
-              <Reveal as="li" key={story.name} delay={i * 70} className="bg-white p-8">
-                <p className="eyebrow text-madder">{story.trade}</p>
-                <blockquote className="mt-5 font-body text-xl italic leading-snug text-ink">
-                  “{story.quote}”
-                </blockquote>
-                <p className="mt-5 text-[0.92rem] leading-relaxed text-slate">
-                  {story.body.split(". ").slice(0, 2).join(". ")}.
-                </p>
-                <footer className="mt-6 flex items-center gap-4 border-t border-line pt-4">
-                  {portrait ? (
-                    <Photo
-                      img={portrait}
-                      ratio="1/1"
-                      sizes="56px"
-                      className="h-14 w-14 shrink-0 rounded-full"
-                    />
-                  ) : (
-                    <span
-                      aria-hidden
-                      className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-indigo-50 font-display text-[0.95rem] font-bold text-indigo-700"
-                    >
-                      {story.name
-                        .split(" ")
-                        .map((w) => w[0])
-                        .slice(0, 2)
-                        .join("")}
-                    </span>
-                  )}
-                  <span>
-                    <span className="block font-display text-[0.95rem] font-semibold">
-                      {story.name}
-                    </span>
-                    <span className="block font-mono text-[0.7rem] uppercase tracking-[0.12em] text-mist">
-                      {story.from}
-                    </span>
-                  </span>
-                </footer>
-              </Reveal>
-            );
-          })}
-        </ul>
-        <div className="mt-10">
-          <ButtonLink href="/recognition/success-stories" variant="outline">
-            More stories
-          </ButtonLink>
-        </div>
-      </Section>
-
-      {/* ------------------------------ inquiry -------------------- */}
       <Section tone="chalk" id="inquiry">
         <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
           <div className="lg:sticky lg:top-28 lg:self-start">
             <SectionHead
               eyebrow="Get in touch"
               title="Tell us what you need."
-              lede="Whether you want to train, to hire, or to fund a programme, this is the fastest route in. Every inquiry lands with a named person, not an inbox."
+              lede="Whether you want to train, to hire, or to fund a programme — every inquiry lands with a named person, not an inbox."
             />
             <dl className="mt-10 space-y-6 text-[0.95rem]">
               <div>

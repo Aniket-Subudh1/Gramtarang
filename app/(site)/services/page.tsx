@@ -3,12 +3,9 @@ import Link from "next/link";
 import { Reveal } from "@/components/reveal";
 import { PageHeader, Section } from "@/components/ui";
 import { services } from "@/lib/content";
+import { pages } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Services",
-  description:
-    "Skill training, workforce solutions, production and action learning, and work-integrated apprenticeships.",
-};
+export const metadata: Metadata = pages.services;
 
 export default function ServicesPage() {
   return (

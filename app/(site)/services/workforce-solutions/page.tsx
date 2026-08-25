@@ -5,12 +5,9 @@ import { InquiryForm } from "@/components/inquiry-form";
 import { industryPartners, workforceSolutions } from "@/lib/content";
 import { partnerLogos, workforceImages } from "@/lib/assets";
 import { Logo, Photo } from "@/components/media";
+import { pages } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Workforce solutions",
-  description:
-    "End-to-end recruitment, payrolling and statutory compliance for employers hiring skilled workers at scale across India.",
-};
+export const metadata: Metadata = pages.workforce;
 
 export default function WorkforcePage() {
   return (

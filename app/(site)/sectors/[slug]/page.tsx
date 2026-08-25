@@ -6,6 +6,9 @@ import { InquiryForm } from "@/components/inquiry-form";
 import { sectors } from "@/lib/content";
 import { sectorImages } from "@/lib/assets";
 import { Photo } from "@/components/media";
+import { JsonLd } from "@/components/json-ld";
+import { sectorJsonLd } from "@/lib/jsonld";
+import { sectorMeta } from "@/lib/seo";
 
 export function generateStaticParams() {
   return sectors.map((s) => ({ slug: s.slug }));
@@ -19,7 +22,7 @@ export async function generateMetadata({
   const { slug } = await params;
   const sector = sectors.find((s) => s.slug === slug);
   if (!sector) return {};
-  return { title: sector.name, description: sector.blurb };
+  return sectorMeta(sector);
 }
 
 export default async function SectorPage({
@@ -35,6 +38,7 @@ export default async function SectorPage({
 
   return (
     <>
+      <JsonLd data={sectorJsonLd(slug)} />
       <PageHeader eyebrow={`Sector · ${sector.code}`} title={sector.name} lede={sector.blurb} />
 
       {sectorImages[sector.slug] && (

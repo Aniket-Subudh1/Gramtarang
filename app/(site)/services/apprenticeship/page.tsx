@@ -5,12 +5,9 @@ import { InquiryForm } from "@/components/inquiry-form";
 import { apprenticeship, org } from "@/lib/content";
 import { facilityImages } from "@/lib/assets";
 import { Photo } from "@/components/media";
+import { pages } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Work-integrated training & apprenticeship",
-  description:
-    "Earn while you learn: paid work combined with contact classes, e-learning and formal DGT or university certification.",
-};
+export const metadata: Metadata = pages.apprenticeship;
 
 export default function ApprenticeshipPage() {
   return (
