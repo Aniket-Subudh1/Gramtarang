@@ -26,8 +26,8 @@ export function Wordmark({
         style={{ height, width: "auto" }}
       />
       <span
-        className={`flex max-w-[11.5rem] flex-col font-display font-semibold leading-[1.15] tracking-[-0.03em] sm:max-w-[15.5rem] ${
-          compact ? "text-[0.78rem] sm:text-[0.84rem]" : "text-[0.92rem]"
+        className={`flex max-w-[12rem] flex-col font-display font-semibold leading-[1.15] tracking-[-0.03em] sm:max-w-[16rem] ${
+          compact ? "text-[0.8rem] sm:text-[0.86rem]" : "text-[0.94rem]"
         }`}
         style={{ color: tone === "light" ? "#ffffff" : "#101625" }}
       >

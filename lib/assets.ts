@@ -375,7 +375,7 @@ export const campusGallery: Img[] = [
 export const partnerLogos: Record<string, Img> = {
   "msde-pmkvy": { src: "/images/logos/msde.webp", w: 77, h: 120, alt: "MSDE, Government of India" },
   "mord-ddu-gky": { src: "/images/logos/ddu-gky.webp", w: 256, h: 120, alt: "MoRD — DDU-GKY" },
-  nsdc: { src: "/images/logos/nsdc.webp", w: 225, h: 120, alt: "National Skill Development Corporation" },
+  nsdc: { src: "/images/logos/nsdc.webp", w: 252, h: 240, alt: "National Skill Development Corporation" },
   odisha: { src: "/images/logos/odisha.webp", w: 110, h: 120, alt: "Government of Odisha" },
   "andhra-pradesh": { src: "/images/logos/andhra-pradesh.webp", w: 110, h: 120, alt: "Government of Andhra Pradesh" },
   jharkhand: { src: "/images/logos/jharkhand.webp", w: 110, h: 120, alt: "Government of Jharkhand" },

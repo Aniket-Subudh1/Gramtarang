@@ -90,7 +90,7 @@ fill 2020/04/payroll-scaled.jpg            images/workforce/payroll.webp     140
 
 echo "→ partner logos  (home page government + industry rows)"
 logo 2016/06/odisha-logo.png               images/logos/odisha.webp 120
-logo 2016/06/nsdc-logo.png                 images/logos/nsdc.webp 120
+# NSDC uses the current official mark in public/images/logos/nsdc.webp (not the 2016 WordPress export).
 logo 2016/06/india-logo.png                images/logos/msde.webp 120
 logo 2016/06/AP-logo.png                   images/logos/andhra-pradesh.webp 120
 logo 2016/06/Chhattisgarh-logo.png         images/logos/chhattisgarh.webp 120
