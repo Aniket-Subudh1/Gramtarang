@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ButtonLink, PageHeader, Section, SectionHead } from "@/components/ui";
+import { ButtonLink, Section, SectionHead } from "@/components/ui";
 import { InquiryForm } from "@/components/inquiry-form";
 import { sectors } from "@/lib/content";
 import { sectorGalleries, sectorImages } from "@/lib/assets";
-import { Photo, PhotoStrip } from "@/components/media";
+import { SectorSlideshow } from "@/components/sector-slideshow";
 import { JsonLd } from "@/components/json-ld";
 import { sectorJsonLd } from "@/lib/jsonld";
 import { sectorMeta } from "@/lib/seo";
@@ -35,20 +35,34 @@ export default async function SectorPage({
   if (!sector) notFound();
 
   const others = sectors.filter((s) => s.slug !== slug);
+  const leadImage = sectorImages[sector.slug];
+  const gallery = sectorGalleries[sector.slug] ?? [];
+  const heroImages = gallery.length > 1 ? gallery : leadImage ? [leadImage] : gallery;
 
   return (
     <>
       <JsonLd data={sectorJsonLd(slug)} />
-      <PageHeader eyebrow={`Sector · ${sector.code}`} title={sector.name} lede={sector.blurb} />
-
-      {sectorImages[sector.slug] && (
-        <Photo
-          img={sectorImages[sector.slug]}
+      <section className="relative isolate h-120 overflow-hidden bg-indigo-900 text-white md:h-152">
+        <SectorSlideshow
+          images={heroImages}
           priority
-          sizes="100vw"
-          className="h-[260px] w-full md:h-[420px]"
+          className="absolute inset-0 h-full w-full"
         />
-      )}
+        <div
+          aria-hidden
+          className="absolute inset-0 bg-linear-to-t from-indigo-900 via-indigo-900/25 to-indigo-900/10"
+        />
+        <div className="shell relative flex h-full flex-col justify-end pb-10 md:pb-14">
+          <p className="eyebrow text-turmeric">Sector · {sector.code}</p>
+          <span aria-hidden className="mt-4 block h-px w-10 bg-turmeric" />
+          <h1 className="mt-5 max-w-4xl text-4xl font-extrabold leading-[1.02] tracking-[-0.03em] md:text-[4rem]">
+            {sector.name}
+          </h1>
+          <p className="mt-5 max-w-2xl text-lg leading-relaxed text-indigo-100 md:text-xl">
+            {sector.blurb}
+          </p>
+        </div>
+      </section>
 
       {(sector.enrolments || sector.placement) && (
         <div className="border-b border-line bg-indigo-900">
@@ -122,13 +136,6 @@ export default async function SectorPage({
             </div>
           </aside>
         </div>
-
-        {sectorGalleries[sector.slug]?.length ? (
-          <div className="mt-16">
-            <p className="eyebrow text-mist">From the workshop</p>
-            <PhotoStrip images={sectorGalleries[sector.slug]} className="mt-5" />
-          </div>
-        ) : null}
       </Section>
 
       <Section tone="chalk" id="apply">
@@ -144,7 +151,7 @@ export default async function SectorPage({
         </div>
       </Section>
 
-      <Section tone="white" className="!py-14">
+      <Section tone="white" className="py-14!">
         <p className="eyebrow text-mist">Other sectors</p>
         <ul className="mt-5 flex flex-wrap gap-2">
           {others.map((other) => (

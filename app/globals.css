@@ -211,6 +211,21 @@ p { text-wrap: pretty; }
   animation: sector-fade 0.45s ease both;
 }
 
+.sector-slide {
+  opacity: 0;
+  transition: opacity 1.2s ease-in-out;
+}
+
+.sector-slide-active {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sector-slide {
+    transition: none;
+  }
+}
+
 @keyframes menu-in {
   from {
     opacity: 0;

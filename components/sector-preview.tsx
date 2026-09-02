@@ -2,23 +2,25 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Photo } from "@/components/media";
-import { sectorImages, type Img } from "@/lib/assets";
+import { SectorSlideshow } from "@/components/sector-slideshow";
+import { sectorGalleries, sectorImages, type Img } from "@/lib/assets";
 import type { Sector } from "@/lib/content";
 
 export function SectorPreview({ sectors }: { sectors: Sector[] }) {
   const [active, setActive] = useState(0);
   const current = sectors[active] ?? sectors[0];
   const image: Img | undefined = sectorImages[current.slug];
+  const gallery = sectorGalleries[current.slug] ?? [];
+  const images: Img[] = gallery.length > 1 ? gallery : image ? [image] : gallery;
 
   return (
     <div className="grid gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-16">
-      <div className="relative min-h-72 overflow-hidden bg-indigo-900 lg:min-h-[34rem]">
-        {image ? (
-          <Photo
+      <div className="relative min-h-72 overflow-hidden bg-indigo-900 lg:min-h-136">
+        {images.length ? (
+          <SectorSlideshow
             key={current.slug}
-            img={image}
-            sizes="(max-width: 1024px) 100vw, 55vw"
+            images={images}
+            showDots={false}
             className="sector-fade absolute inset-0 h-full w-full"
           />
         ) : (

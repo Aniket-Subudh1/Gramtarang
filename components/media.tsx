@@ -15,12 +15,14 @@ export function Photo({
   sizes,
   priority = false,
   ratio,
+  position = "top",
 }: {
   img: Img;
   className?: string;
   sizes?: string;
   priority?: boolean;
   ratio?: string;
+  position?: "center" | "top";
 }) {
   return (
     <span
@@ -35,7 +37,9 @@ export function Photo({
         sizes={sizes}
         priority={priority}
         loading={priority ? undefined : "lazy"}
-        className="h-full w-full object-cover"
+        className={`h-full w-full object-cover ${
+          position === "top" ? "object-top" : "object-center"
+        }`}
       />
     </span>
   );
