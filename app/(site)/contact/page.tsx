@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { PageHeader, Section, SectionHead } from "@/components/ui";
 import { InquiryForm } from "@/components/inquiry-form";
 import { centreGroups, org } from "@/lib/content";
+import { campusGallery } from "@/lib/assets";
+import { PhotoStrip } from "@/components/media";
 import { pages } from "@/lib/seo";
 
 export const metadata: Metadata = pages.contact;
@@ -14,6 +16,8 @@ export default function ContactPage() {
         title="Tell us what you need."
         lede="One form, four routes. Pick what your inquiry is about and it reaches the person who handles that, not a general inbox."
       />
+
+      <PhotoStrip images={campusGallery} />
 
       <Section tone="white">
         <div className="grid gap-12 lg:grid-cols-[0.75fr_1.25fr] lg:gap-16">

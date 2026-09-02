@@ -91,7 +91,7 @@ export function Dashboard({
       <header className="sticky top-0 z-30 border-b border-line bg-chalk/95 backdrop-blur">
         <div className="mx-auto flex h-[4.5rem] max-w-[100rem] items-center justify-between gap-6 px-5 md:px-8">
           <div className="flex items-center gap-5">
-            <Wordmark />
+            <Wordmark compact />
             <span className="hidden border-l border-line pl-5 font-mono text-[0.7rem] uppercase tracking-[0.16em] text-mist sm:block">
               Inquiries console
             </span>

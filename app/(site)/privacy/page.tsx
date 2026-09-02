@@ -33,7 +33,7 @@ export default function PrivacyPage() {
           <h2 className="mt-8 text-xl font-bold">Where it is kept</h2>
           <p>
             Inquiries are stored in a managed database and are visible only to
-            Gram Tarang staff who have been given access to the internal
+            {org.legalName} staff who have been given access to the internal
             console. Access requires a password and expires after twelve hours.
           </p>
 

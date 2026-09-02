@@ -1,70 +1,93 @@
 /**
  * Every image on the site, in one place.
  *
- * Each entry records where the file is used on gramtarang.org.in, so the
- * mapping can be checked rather than taken on trust. Assets are
- * pre-generated at 2x display size and converted to WebP by
- * scripts/build-assets.sh; dimensions are recorded here to reserve
- * layout space while they load.
+ * Photographs under /photos/ are converted from
+ * public/Gram Tarang New Website Photos/ by scripts/import-photos.py.
+ * Portraits, awards, method diagrams and partner logos still come from
+ * the original WordPress library via scripts/build-assets.sh.
+ * Dimensions are recorded here to reserve layout space while they load.
  */
 
 export type Img = { src: string; w: number; h: number; alt: string };
 
+const photo = (src: string, w: number, h: number, alt: string): Img => ({
+  src,
+  w,
+  h,
+  alt,
+});
+
 export const brand = {
   lockup: {
-    src: "/images/logo-gram-tarang.webp",
-    w: 184,
-    h: 120,
-    alt: "Gram Tarang Employability Training Services",
+    src: "/gtet-logo.png",
+    w: 382,
+    h: 304,
+    alt: "Gram Tarang Employability Training Services Pvt. Ltd.",
   } satisfies Img,
-  mark: { src: "/images/logo-mark.png", w: 512, h: 512, alt: "Gram Tarang" } satisfies Img,
+  mark: {
+    src: "/gtet-logo.png",
+    w: 382,
+    h: 304,
+    alt: "Gram Tarang Employability Training Services Pvt. Ltd.",
+  } satisfies Img,
+  centurion: {
+    src: "/cutm-logo.png",
+    w: 657,
+    h: 1024,
+    alt: "Centurion University",
+  } satisfies Img,
 };
 
 /**
- * The home page carousel. Each slide on the original site pairs a
- * photograph with one programme, so the pairing is preserved here.
+ * The home page carousel. Each slide pairs a photograph with one programme.
  */
 export const heroSlides: (Img & { caption: string; href: string })[] = [
   {
-    src: "/images/hero/cnc-operator.webp",
-    w: 1800,
-    h: 820,
-    alt: "Trainees working on CNC lathe and milling machines",
+    ...photo(
+      "/photos/hero/cnc.webp",
+      1800,
+      1200,
+      "A CNC mill cutting metal, with a Renishaw probe on the machine bed",
+    ),
     caption: "CNC Operator — over 1,000 technicians a year for the auto component industry",
     href: "/sectors/manufacturing",
   },
   {
-    src: "/images/hero/sewing-operator.webp",
-    w: 1800,
-    h: 820,
-    alt: "Trainees at industrial sewing machines on a production line",
+    ...photo(
+      "/photos/hero/sewing.webp",
+      1800,
+      1200,
+      "A trainee sewing on a JUKI industrial machine in the apparel centre",
+    ),
     caption: "Sewing Machine Operator — a three-month residential course with employment assurance",
     href: "/sectors/apparel-textiles",
   },
   {
-    src: "/images/hero/ashok-leyland.webp",
-    w: 1800,
-    h: 820,
-    alt: "Service technicians training on commercial vehicles",
+    ...photo(
+      "/photos/hero/ashok-leyland.webp",
+      1800,
+      1200,
+      "Cutaway commercial-vehicle engines in the Ashok Leyland zonal training centre",
+    ),
     caption: "Ashok Leyland Service Technician — our first industry partnership",
     href: "/sectors/automotive",
   },
 ];
 
-export const heroPrimary: Img = {
-  src: "/images/hero/workshop-2026.webp",
-  w: 1536,
-  h: 1024,
-  alt: "Trainees at work on a vocational workshop floor",
-};
+export const heroPrimary: Img = photo(
+  "/photos/hero/workshop.webp",
+  1800,
+  1200,
+  "Trainees in Centurion ITI uniforms working on a live electrical circuit",
+);
 
 /** Atmospheric photograph for the home-page story panel. Not a portrait of a named person. */
-export const storyAtmosphere: Img = {
-  src: "/images/stories/cafe-counter-2026.webp",
-  w: 1024,
-  h: 1536,
-  alt: "A brewmaster at work on a café espresso bar",
-};
+export const storyAtmosphere: Img = photo(
+  "/photos/stories/cafe-counter.webp",
+  1400,
+  1090,
+  "A brewmaster at work on a café espresso bar",
+);
 
 /** Bhanu, from Khorda, placed at Shahi Exports in Bangalore. */
 export const bhanu: Img = {
@@ -75,54 +98,122 @@ export const bhanu: Img = {
 };
 
 export const sectorImages: Record<string, Img> = {
-  manufacturing: {
-    src: "/images/sectors/manufacturing-2026.webp",
-    w: 1536,
-    h: 1024,
-    alt: "A machinist operating a CNC lathe in the manufacturing workshop",
-  },
-  "apparel-textiles": {
-    src: "/images/sectors/apparel-textiles-2026.webp",
-    w: 1536,
-    h: 1024,
-    alt: "Trainees at industrial sewing machines on a garment production line",
-  },
-  automotive: {
-    src: "/images/sectors/automotive-2026.webp",
-    w: 1536,
-    h: 1024,
-    alt: "Service technicians working on a motorcycle in the automotive workshop",
-  },
-  "retail-hospitality": {
-    src: "/images/sectors/retail-hospitality-2026.webp",
-    w: 1536,
-    h: 1024,
-    alt: "A brewmaster steaming milk at a café training bar",
-  },
-  healthcare: {
-    src: "/images/sectors/healthcare-2026.webp",
-    w: 1536,
-    h: 1024,
-    alt: "A medical lab technician at a microscope in a training laboratory",
-  },
-  agriculture: {
-    src: "/images/sectors/agriculture-2026.webp",
-    w: 1536,
-    h: 1024,
-    alt: "Field assessment with farming households in rural Odisha",
-  },
+  manufacturing: photo(
+    "/photos/sectors/manufacturing.webp",
+    1600,
+    1068,
+    "A Jyoti five-axis machining centre on the Mini Tool Room floor",
+  ),
+  "apparel-textiles": photo(
+    "/photos/sectors/apparel-textiles.webp",
+    1600,
+    1068,
+    "Trainees spreading fabric on the cutting table in the apparel centre",
+  ),
+  automotive: photo(
+    "/photos/sectors/automotive.webp",
+    1600,
+    1067,
+    "Yamaha service technicians training on motorcycle engines",
+  ),
+  "retail-hospitality": photo(
+    "/photos/sectors/retail-hospitality.webp",
+    1600,
+    1246,
+    "A brewmaster trainee steaming milk at a café training bar",
+  ),
+  healthcare: photo(
+    "/photos/sectors/healthcare.webp",
+    1600,
+    1068,
+    "The emergency medicine technology lab, with hospital beds and training mannequins",
+  ),
+  agriculture: photo(
+    "/photos/sectors/agriculture.webp",
+    1280,
+    720,
+    "A practical agriculture assessment with trainees in the field",
+  ),
   bfsi: {
     src: "/images/sectors/bfsi-2026.webp",
     w: 1536,
     h: 1024,
     alt: "A business correspondent helping a customer in a rural banking kiosk",
   },
-  "beauty-wellness": {
-    src: "/images/sectors/beauty-wellness-2026.webp",
-    w: 1536,
-    h: 1024,
-    alt: "A beauty therapist trainee practising in a salon classroom",
-  },
+  "beauty-wellness": photo(
+    "/photos/sectors/beauty-wellness.webp",
+    1600,
+    900,
+    "Trainees in a yoga and wellness session",
+  ),
+};
+
+/** Extra photographs shown on each sector page and the sectors index. */
+export const sectorGalleries: Record<string, Img[]> = {
+  manufacturing: [
+    photo("/photos/gallery/manufacturing-1.webp", 1400, 935, "Five-axis CNC machining centre"),
+    photo("/photos/gallery/manufacturing-2.webp", 1400, 933, "CNC mill in a cutting cycle"),
+    photo("/photos/gallery/manufacturing-3.webp", 1400, 933, "Electrical trainees at a live circuit board"),
+    photo("/photos/gallery/manufacturing-4.webp", 1400, 935, "Wood engineering production centre"),
+    photo("/photos/gallery/manufacturing-5.webp", 1400, 933, "NABL transformer laboratory"),
+    photo("/photos/gallery/manufacturing-6.webp", 1400, 933, "Printing laboratory"),
+  ],
+  "apparel-textiles": [
+    photo("/photos/gallery/apparel-1.webp", 1400, 933, "Sewing machine operator on a JUKI industrial machine"),
+    photo("/photos/gallery/apparel-2.webp", 1400, 935, "Cutting table in the apparel centre"),
+    photo("/photos/gallery/apparel-3.webp", 1400, 935, "Finished garments from the production line"),
+    photo("/photos/gallery/apparel-4.webp", 1400, 935, "The Advance Centre of Excellence for Apparel & Textile"),
+  ],
+  automotive: [
+    photo("/photos/gallery/automotive-1.webp", 1400, 933, "Yamaha two-wheeler service lab"),
+    photo("/photos/gallery/automotive-2.webp", 1400, 933, "Ashok Leyland commercial vehicle training centre"),
+    photo("/photos/gallery/automotive-3.webp", 1400, 935, "Sky Rider Auto e-rickshaw production"),
+    photo("/photos/gallery/automotive-4.webp", 1400, 933, "Hyundai four-wheel service laboratory"),
+    photo("/photos/gallery/automotive-5.webp", 1400, 933, "Volvo Eicher commercial vehicle training"),
+  ],
+  "retail-hospitality": [
+    photo("/photos/gallery/retail-1.webp", 1400, 1090, "Café brewmaster training"),
+  ],
+  healthcare: [
+    photo("/photos/gallery/healthcare-1.webp", 1400, 935, "Emergency medicine technology laboratory"),
+    photo("/photos/gallery/healthcare-2.webp", 1400, 788, "Physiotherapy laboratory with suspension therapy equipment"),
+    photo("/photos/gallery/healthcare-3.webp", 1400, 935, "Clinical skills practice in the healthcare lab"),
+    photo("/photos/gallery/healthcare-4.webp", 1400, 788, "Rehabilitation equipment in the physiotherapy lab"),
+  ],
+  agriculture: [
+    photo("/photos/gallery/agriculture-1.webp", 1280, 720, "Agriculture practical session"),
+    photo("/photos/gallery/agriculture-2.webp", 1280, 720, "Field practical with agriculture trainees"),
+    photo("/photos/gallery/agriculture-3.webp", 1400, 1050, "Village mobilisation practical group"),
+    photo("/photos/gallery/agriculture-4.webp", 1400, 933, "Compost preparation in an agriculture practical"),
+  ],
+  "beauty-wellness": [
+    photo("/photos/gallery/beauty-1.webp", 1400, 788, "Yoga and wellness training session"),
+    photo("/photos/gallery/beauty-2.webp", 1400, 933, "A campus wellness session at Centurion University"),
+    photo("/photos/gallery/beauty-3.webp", 1400, 788, "Group yoga practice in the wellness hall"),
+    photo("/photos/gallery/beauty-4.webp", 1400, 933, "Beauty and wellness training"),
+  ],
+};
+
+export const serviceImages: Record<string, Img> = {
+  "skill-training": sectorImages.manufacturing,
+  "workforce-solutions": photo(
+    "/photos/workforce/staffing.webp",
+    1400,
+    935,
+    "Apparel trainees on a live production floor",
+  ),
+  "action-learning": photo(
+    "/photos/facilities/mtrtc-1.webp",
+    1400,
+    935,
+    "Five-axis machining centre in the Mini Tool Room",
+  ),
+  apprenticeship: photo(
+    "/photos/facilities/ashok-leyland.webp",
+    1600,
+    1067,
+    "The Ashok Leyland zonal training centre at Bhubaneswar",
+  ),
 };
 
 /** /index.php/training-methodology-philosophy/ */
@@ -169,30 +260,10 @@ export const methodDiagrams = {
 
 /** /index.php/trainers-pedagogy/ — "Pedagogy: theory, practice & production" */
 export const pedagogyProduction: Img[] = [
-  {
-    src: "/images/pedagogy/production-1.webp",
-    w: 870,
-    h: 580,
-    alt: "Machined components produced by trainees",
-  },
-  {
-    src: "/images/pedagogy/production-2.webp",
-    w: 870,
-    h: 580,
-    alt: "A fabricated steel bed frame produced in the welding workshop",
-  },
-  {
-    src: "/images/pedagogy/production-3.webp",
-    w: 870,
-    h: 580,
-    alt: "Precision turned parts laid out for inspection",
-  },
-  {
-    src: "/images/pedagogy/production-4.webp",
-    w: 870,
-    h: 580,
-    alt: "A live garment production line run by trainees",
-  },
+  photo("/photos/pedagogy/production-1.webp", 1200, 801, "A five-axis machining centre used in production training"),
+  photo("/photos/pedagogy/production-2.webp", 1200, 801, "Furniture production on an industrial panel saw"),
+  photo("/photos/pedagogy/production-3.webp", 1200, 800, "A printed mug produced in the printing laboratory"),
+  photo("/photos/pedagogy/production-4.webp", 1200, 801, "Finished garments packed on the apparel production line"),
 ];
 
 /** /index.php/awards-recognition/awards/ */
@@ -243,31 +314,62 @@ export const storyPortraits: Record<string, Img> = {
 };
 
 export const facilityImages = {
-  mtrtc: [1, 2, 3, 4, 5].map((n) => ({
-    src: `/images/facilities/mtrtc-${n}.webp`,
-    w: 900,
-    h: 700,
-    alt: "The Mini Tool Room & Training Centre",
-  })) satisfies Img[],
-  trainingFloor: {
-    src: "/images/facilities/training-floor-2026.webp",
-    w: 1536,
-    h: 1024,
-    alt: "An instructor teaching a trainee on the workshop floor",
-  } satisfies Img,
-  ashokLeyland: {
-    src: "/images/facilities/ashok-leyland.webp",
-    w: 1200,
-    h: 880,
-    alt: "The Ashok Leyland zonal training centre at Bhubaneswar",
-  } satisfies Img,
+  mtrtc: [
+    photo("/photos/facilities/mtrtc-1.webp", 1400, 935, "Five-axis machining centre in the Mini Tool Room"),
+    photo("/photos/facilities/mtrtc-2.webp", 1400, 933, "Precision machining on the Mini Tool Room floor"),
+    photo("/photos/facilities/mtrtc-3.webp", 1400, 933, "Transformer testing in the NABL-accredited laboratory"),
+    photo("/photos/facilities/mtrtc-4.webp", 1400, 933, "The printing laboratory production floor"),
+    photo("/photos/facilities/mtrtc-5.webp", 1400, 933, "Live CNC cutting in the tool room"),
+  ],
+  trainingFloor: photo(
+    "/photos/facilities/training-floor.webp",
+    1600,
+    1068,
+    "An instructor and trainee operating a Felder panel saw in the wood engineering centre",
+  ),
+  ashokLeyland: photo(
+    "/photos/facilities/ashok-leyland.webp",
+    1600,
+    1067,
+    "The Ashok Leyland zonal training centre at Bhubaneswar",
+  ),
+  skyy: photo(
+    "/photos/facilities/skyy.webp",
+    1600,
+    1068,
+    "E-rickshaw assembly at Sky Rider Auto, a live production unit",
+  ),
+  apparelLine: photo(
+    "/photos/facilities/apparel-line.webp",
+    1600,
+    1067,
+    "A live garment production line run by trainees",
+  ),
 };
 
+/** One photograph per action-learning unit, in the same order as lib/content.ts. */
+export const actionLearningPhotos: Img[] = [
+  facilityImages.mtrtc[0],
+  facilityImages.mtrtc[2],
+  facilityImages.skyy,
+  facilityImages.apparelLine,
+];
+
 export const workforceImages = {
-  recruitment: { src: "/images/workforce/recruitment.webp", w: 1400, h: 790, alt: "End-to-end recruitment" },
-  staffing: { src: "/images/workforce/staffing.webp", w: 1400, h: 790, alt: "Staffing and deployment" },
-  payroll: { src: "/images/workforce/payroll.webp", w: 1400, h: 790, alt: "Payrolling and statutory compliance" },
+  recruitment: photo("/photos/workforce/recruitment.webp", 1400, 933, "Technicians trained and ready for dealership deployment"),
+  staffing: photo("/photos/workforce/staffing.webp", 1400, 935, "Apparel trainees on a live production floor"),
+  payroll: photo("/photos/workforce/payroll.webp", 1400, 933, "Electrical trainees on the workshop floor"),
 };
+
+/** Mixed workshop photographs for pages that are not sector-specific. */
+export const campusGallery: Img[] = [
+  heroPrimary,
+  sectorImages["apparel-textiles"],
+  sectorImages.automotive,
+  facilityImages.trainingFloor,
+  sectorImages.healthcare,
+  storyAtmosphere,
+];
 
 /** Keyed by the slug in lib/content.ts. */
 export const partnerLogos: Record<string, Img> = {
@@ -291,8 +393,18 @@ export const partnerLogos: Record<string, Img> = {
 
 export const ecosystemLogos: Record<string, Img> = {
   "MSDE, Government of India": { src: "/images/logos/msde.webp", w: 77, h: 120, alt: "MSDE, Government of India" },
-  "Centurion University": { src: "/images/logos/centurion-university.webp", w: 98, h: 120, alt: "Centurion University" },
-  "Gram Tarang": { src: "/images/logo-mark.png", w: 512, h: 512, alt: "Gram Tarang" },
+  "Centurion University": {
+    src: "/cutm-logo.png",
+    w: 657,
+    h: 1024,
+    alt: "Centurion University",
+  },
+  "Gram Tarang Employability Training Services Pvt. Ltd.": {
+    src: "/gtet-logo.png",
+    w: 382,
+    h: 304,
+    alt: "Gram Tarang Employability Training Services Pvt. Ltd.",
+  },
 };
 
 export const docs = { wellCatalogue: "/docs/well-catalogue.pdf" };

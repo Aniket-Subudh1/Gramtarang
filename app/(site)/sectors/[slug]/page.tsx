@@ -4,8 +4,8 @@ import { notFound } from "next/navigation";
 import { ButtonLink, PageHeader, Section, SectionHead } from "@/components/ui";
 import { InquiryForm } from "@/components/inquiry-form";
 import { sectors } from "@/lib/content";
-import { sectorImages } from "@/lib/assets";
-import { Photo } from "@/components/media";
+import { sectorGalleries, sectorImages } from "@/lib/assets";
+import { Photo, PhotoStrip } from "@/components/media";
 import { JsonLd } from "@/components/json-ld";
 import { sectorJsonLd } from "@/lib/jsonld";
 import { sectorMeta } from "@/lib/seo";
@@ -122,6 +122,13 @@ export default async function SectorPage({
             </div>
           </aside>
         </div>
+
+        {sectorGalleries[sector.slug]?.length ? (
+          <div className="mt-16">
+            <p className="eyebrow text-mist">From the workshop</p>
+            <PhotoStrip images={sectorGalleries[sector.slug]} className="mt-5" />
+          </div>
+        ) : null}
       </Section>
 
       <Section tone="chalk" id="apply">

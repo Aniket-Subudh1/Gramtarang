@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { Reveal } from "@/components/reveal";
 import { ButtonLink, Note, PageHeader, Section, SectionHead } from "@/components/ui";
 import { careerPathing, methodPhases } from "@/lib/content";
-import { pedagogyProduction } from "@/lib/assets";
-import { Photo } from "@/components/media";
+import { campusGallery, pedagogyProduction } from "@/lib/assets";
+import { Photo, PhotoStrip } from "@/components/media";
 import { pages } from "@/lib/seo";
 
 export const metadata: Metadata = pages.trainers;
@@ -22,6 +22,8 @@ export default function TrainersPage() {
         title="Trainers & pedagogy"
         lede="Curriculum, pedagogy and technical upgradation run continuously through Centurion University's School of Vocational Training. A trainer at a satellite centre teaches the same syllabus, to the same standard, as one at a mother centre."
       />
+
+      <PhotoStrip images={campusGallery} />
 
       <Section tone="chalk" className="!py-14">
         <dl className="grid gap-px border border-line bg-line sm:grid-cols-3">

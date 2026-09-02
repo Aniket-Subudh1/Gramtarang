@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { Reveal } from "@/components/reveal";
 import { ButtonLink, PageHeader, Section, SectionHead } from "@/components/ui";
 import { awards, recognitionNotes } from "@/lib/content";
-import { awardImages } from "@/lib/assets";
-import { Photo } from "@/components/media";
+import { awardImages, campusGallery } from "@/lib/assets";
+import { Photo, PhotoStrip } from "@/components/media";
 import { pages } from "@/lib/seo";
 
 export const metadata: Metadata = pages.awards;
@@ -16,6 +16,8 @@ export default function AwardsPage() {
         title="Awards"
         lede="Recognition matters here mostly because it is what convinces a district administration to send us their young people."
       />
+
+      <PhotoStrip images={campusGallery} />
 
       <Section tone="white">
         <ol className="divide-y divide-[--color-line] border-y border-line">

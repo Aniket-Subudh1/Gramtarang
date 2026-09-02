@@ -3,6 +3,8 @@ import Link from "next/link";
 import { Reveal } from "@/components/reveal";
 import { PageHeader, Section } from "@/components/ui";
 import { services } from "@/lib/content";
+import { serviceImages } from "@/lib/assets";
+import { Photo } from "@/components/media";
 import { pages } from "@/lib/seo";
 
 export const metadata: Metadata = pages.services;
@@ -23,6 +25,14 @@ export default function ServicesPage() {
                 href={service.href}
                 className="group flex h-full flex-col p-9 transition-colors hover:bg-indigo-50"
               >
+                {serviceImages[service.slug] && (
+                  <Photo
+                    img={serviceImages[service.slug]}
+                    ratio="16/9"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="-mx-9 -mt-9 mb-8 w-[calc(100%+4.5rem)]"
+                  />
+                )}
                 <span className="font-mono text-[0.72rem] tracking-[0.14em] text-mist">
                   {String(i + 1).padStart(2, "0")}
                 </span>

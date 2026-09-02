@@ -17,8 +17,8 @@ FONT = str(PUBLIC / "fonts/Geo231Rm.ttf")
 W, H = 1200, 630
 PAD = 48
 GAP = 72
-LOGO_MAX_W = 320
-LOGO_MAX_H = 280
+LOGO_MAX_W = 260
+LOGO_MAX_H = 460
 
 INDIGO = (20, 32, 74)
 INDIGO_DEEP = (12, 18, 42)
@@ -48,11 +48,25 @@ SECTORS = [
 
 
 def load_logo() -> Image.Image:
-    mark = Image.open(PUBLIC / "images/logo-mark.png").convert("RGBA")
-    mark = mark.crop(mark.getbbox())
-    scale = min(LOGO_MAX_W / mark.width, LOGO_MAX_H / mark.height)
-    size = (round(mark.width * scale), round(mark.height * scale))
-    return mark.resize(size, Image.Resampling.LANCZOS)
+    gtet = Image.open(PUBLIC / "gtet-logo.png").convert("RGBA")
+    gtet = gtet.crop(gtet.getbbox())
+    cutm = Image.open(PUBLIC / "cutm-logo.png").convert("RGBA")
+    cutm = cutm.crop(cutm.getbbox())
+
+    cutm_h = 230
+    cutm_scale = cutm_h / cutm.height
+    cutm = cutm.resize((round(cutm.width * cutm_scale), cutm_h), Image.Resampling.LANCZOS)
+    gtet_h = 110
+    gtet_scale = gtet_h / gtet.height
+    gtet = gtet.resize((round(gtet.width * gtet_scale), gtet_h), Image.Resampling.LANCZOS)
+
+    pad, gap = 18, 16
+    sheet_w = max(gtet.width, cutm.width) + pad * 2
+    sheet_h = cutm.height + gap + gtet.height + pad * 2
+    sheet = Image.new("RGBA", (sheet_w, sheet_h), (255, 255, 255, 255))
+    sheet.paste(cutm, ((sheet_w - cutm.width) // 2, pad), cutm)
+    sheet.paste(gtet, ((sheet_w - gtet.width) // 2, pad + cutm.height + gap), gtet)
+    return sheet
 
 
 def wash() -> Image.Image:
@@ -112,18 +126,19 @@ def main() -> None:
 
     code_f = ImageFont.truetype(FONT, 20)
     title_f = ImageFont.truetype(FONT, 56)
+    name_f = ImageFont.truetype(FONT, 36)
     lede_f = ImageFont.truetype(FONT, 26)
     small_f = ImageFont.truetype(FONT, 20)
     kicker_f = ImageFont.truetype(FONT, 22)
 
     def home_copy(draw, x, max_w):
         y = 108
-        for line in wrap(draw, "GRAM TARANG", title_f, max_w, 2):
-            draw.text((x, y), line, font=title_f, fill=WHITE)
-            y += 64
+        for line in wrap(draw, "GRAM TARANG EMPLOYABILITY TRAINING SERVICES PVT. LTD.", name_f, max_w, 4):
+            draw.text((x, y), line, font=name_f, fill=WHITE)
+            y += 46
         draw.rectangle([x, y + 4, x + 64, y + 8], fill=TURMERIC)
         y += 28
-        draw.text((x, y), "Employability Training Services", font=kicker_f, fill=MIST)
+        draw.text((x, y), "with Centurion University", font=kicker_f, fill=MIST)
         y += 52
         for line in wrap(draw, "Skills that hold where jobs don't reach.", lede_f, max_w, 3):
             draw.text((x, y), line, font=lede_f, fill=WHITE)
@@ -150,7 +165,7 @@ def main() -> None:
             for line in wrap(draw, blurb, lede_f, max_w, 4):
                 draw.text((x, y), line, font=lede_f, fill=MIST)
                 y += 34
-            draw.text((x, 512), "Gram Tarang  ·  skill training since 2006", font=small_f, fill=TURMERIC)
+            draw.text((x, 512), "Gram Tarang Employability Training Services Pvt. Ltd.", font=small_f, fill=TURMERIC)
 
         save(compose(logo, sector_copy), PUBLIC / "og" / "sectors" / f"{slug}.png")
 

@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Reveal } from "@/components/reveal";
 import { ButtonLink, PageHeader, Section, SectionHead } from "@/components/ui";
 import { centreGroups } from "@/lib/content";
+import { campusGallery } from "@/lib/assets";
+import { PhotoStrip } from "@/components/media";
 import { pages } from "@/lib/seo";
 
 export const metadata: Metadata = pages.centres;
@@ -16,6 +18,8 @@ export default function CentresPage() {
         title="Our centres"
         lede={`${total} centres across five states, run on a hub-and-spoke model: a small number of mother centres on Centurion University campuses, with satellite centres in the districts they serve.`}
       />
+
+      <PhotoStrip images={campusGallery} />
 
       <Section tone="white">
         <SectionHead

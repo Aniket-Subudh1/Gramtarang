@@ -382,8 +382,8 @@ export const careerPathing = {
   ],
   workIntegrated: [
     "Contact classes in a training room inside the factory or near the hostel",
-    "E-learning and self-study through content developed by Gram Tarang",
-    "Practical job work in the workshop or a nearby ITI identified by Gram Tarang",
+    "E-learning and self-study through content developed by Gram Tarang Employability Training Services Pvt. Ltd.",
+    "Practical job work in the workshop or a nearby ITI identified by Gram Tarang Employability Training Services Pvt. Ltd.",
     "Assignments and presentations",
     "On-the-job training and job appraisal",
   ],
@@ -419,7 +419,7 @@ export const ecosystem = [
     ],
   },
   {
-    name: "Gram Tarang",
+    name: "Gram Tarang Employability Training Services Pvt. Ltd.",
     role: "Delivery",
     points: [
       "Implementing agency for all skill programmes across India",
@@ -961,7 +961,7 @@ export const inquiryTypes = [
     label: "Partnership or CSR",
     hint: "Government, industry, funder",
   },
-  { value: "careers", label: "Working at Gram Tarang", hint: "Roles and applications" },
+  { value: "careers", label: "Working at Gram Tarang Employability Training Services Pvt. Ltd.", hint: "Roles and applications" },
   { value: "other", label: "Something else", hint: "" },
 ];
 

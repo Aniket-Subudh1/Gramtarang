@@ -3,6 +3,8 @@ import Link from "next/link";
 import { Reveal } from "@/components/reveal";
 import { PageHeader, Section } from "@/components/ui";
 import { sectors } from "@/lib/content";
+import { sectorImages } from "@/lib/assets";
+import { Photo } from "@/components/media";
 import { pages } from "@/lib/seo";
 
 export const metadata: Metadata = pages.sectors;
@@ -24,8 +26,16 @@ export default function SectorsPage() {
             <Reveal as="li" key={sector.slug} delay={i * 50}>
               <Link
                 href={`/sectors/${sector.slug}`}
-                className="group grid gap-6 border border-line bg-white p-8 transition-colors hover:border-indigo-500 hover:bg-indigo-50 md:grid-cols-[minmax(0,20rem)_1fr] md:gap-12"
+                className="group grid gap-6 border border-line bg-white p-8 transition-colors hover:border-indigo-500 hover:bg-indigo-50 md:grid-cols-[minmax(0,18rem)_minmax(0,16rem)_1fr] md:gap-10"
               >
+                {sectorImages[sector.slug] && (
+                  <Photo
+                    img={sectorImages[sector.slug]}
+                    ratio="16/10"
+                    sizes="(max-width: 768px) 100vw, 18rem"
+                    className="w-full"
+                  />
+                )}
                 <div>
                   <p className="eyebrow text-madder">{sector.code}</p>
                   <h2 className="mt-3 text-3xl font-bold tracking-[-0.03em]">

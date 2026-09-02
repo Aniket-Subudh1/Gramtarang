@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { Reveal } from "@/components/reveal";
 import { ButtonLink, PageHeader, Section, SectionHead } from "@/components/ui";
 import { governmentPartners, industryPartners, partnerNote } from "@/lib/content";
-import { partnerLogos } from "@/lib/assets";
-import { Logo } from "@/components/media";
+import { campusGallery, partnerLogos } from "@/lib/assets";
+import { Logo, PhotoStrip } from "@/components/media";
 import { pages } from "@/lib/seo";
 
 export const metadata: Metadata = pages.partners;
@@ -53,6 +53,8 @@ export default function PartnersPage() {
         title="Governments fund it. Industry hires from it."
         lede={partnerNote}
       />
+
+      <PhotoStrip images={campusGallery} />
 
       <Section tone="white">
         <div className="space-y-20">

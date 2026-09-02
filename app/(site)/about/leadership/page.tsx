@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { Reveal } from "@/components/reveal";
 import { PageHeader, Section } from "@/components/ui";
 import { leadership } from "@/lib/content";
-import { leaderPortraits } from "@/lib/assets";
-import { Photo } from "@/components/media";
+import { campusGallery, leaderPortraits } from "@/lib/assets";
+import { Photo, PhotoStrip } from "@/components/media";
 import { pages } from "@/lib/seo";
 
 export const metadata: Metadata = pages.leadership;
@@ -16,6 +16,8 @@ export default function LeadershipPage() {
         title="Executive leadership"
         lede="Two professors, a banker who moved to Bhubaneswar, and a team that mostly came up through the centres."
       />
+
+      <PhotoStrip images={campusGallery} />
 
       <Section tone="white">
         <ul className="divide-y divide-[--color-line]">

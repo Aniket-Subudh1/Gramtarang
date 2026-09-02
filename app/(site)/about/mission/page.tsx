@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { Reveal } from "@/components/reveal";
 import { PageHeader, Section, SectionHead } from "@/components/ui";
 import { sixDimensions } from "@/lib/content";
-import { bhanu, methodDiagrams } from "@/lib/assets";
-import { Photo } from "@/components/media";
+import { bhanu, campusGallery, methodDiagrams } from "@/lib/assets";
+import { Photo, PhotoStrip } from "@/components/media";
 import { pages } from "@/lib/seo";
 
 export const metadata: Metadata = pages.mission;
@@ -35,6 +35,8 @@ export default function MissionPage() {
         title="Mission, vision & values"
         lede="Written down because a hundred centres in five states cannot be run on instinct alone."
       />
+
+      <PhotoStrip images={campusGallery} />
 
       <Section tone="white">
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-20">

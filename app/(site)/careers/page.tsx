@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Reveal } from "@/components/reveal";
 import { PageHeader, Section, SectionHead } from "@/components/ui";
 import { InquiryForm } from "@/components/inquiry-form";
-import { careers, centreGroups } from "@/lib/content";
+import { careers, centreGroups, org } from "@/lib/content";
 import { facilityImages } from "@/lib/assets";
 import { Photo } from "@/components/media";
 import { pages } from "@/lib/seo";
@@ -16,7 +16,7 @@ const states = [
 export default function CareersPage() {
   return (
     <>
-      <PageHeader eyebrow="Careers" title="Work at Gram Tarang" lede={careers.intro} />
+      <PageHeader eyebrow="Careers" title={`Work at ${org.legalName}`} lede={careers.intro} />
 
       <Photo
         img={facilityImages.trainingFloor}

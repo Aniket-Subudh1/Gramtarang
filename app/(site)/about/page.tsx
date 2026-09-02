@@ -46,8 +46,11 @@ export default function AboutPage() {
             <Reveal key={part.name} delay={i * 70}>
               <Card className="h-full">
                 {ecosystemLogos[part.name] && (
-                  <span className="mb-6 flex h-14 items-center">
-                    <Logo img={ecosystemLogos[part.name]} height={44} />
+                  <span className="mb-6 flex min-h-24 items-center">
+                    <Logo
+                      img={ecosystemLogos[part.name]}
+                      height={ecosystemLogos[part.name].h > ecosystemLogos[part.name].w ? 96 : 48}
+                    />
                   </span>
                 )}
                 <p className="eyebrow text-madder">{part.role}</p>

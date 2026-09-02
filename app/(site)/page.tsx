@@ -63,7 +63,7 @@ const routes = [
 export default function HomePage() {
   return (
     <>
-      <section className="relative isolate -mt-18 min-h-svh overflow-hidden bg-indigo-900 text-white">
+      <section className="relative isolate -mt-22 min-h-svh overflow-hidden bg-indigo-900 text-white">
         <div className="absolute inset-0 hero-zoom">
           <Photo
             img={heroPrimary}
@@ -317,7 +317,7 @@ export default function HomePage() {
           {Object.entries(ecosystemLogos).map(([name, img]) => (
             <span key={name} className="flex items-center gap-3">
               <span className="flex items-center justify-center bg-chalk px-3 py-2">
-                <Logo img={img} height={36} />
+                <Logo img={img} height={img.h > img.w ? 72 : 40} />
               </span>
               <span className="hidden font-display text-[0.85rem] font-medium text-slate sm:inline">
                 {name}

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Reveal } from "@/components/reveal";
 import { ButtonLink, PageHeader, Section, SectionHead } from "@/components/ui";
 import { actionLearning, org } from "@/lib/content";
-import { docs, facilityImages } from "@/lib/assets";
+import { actionLearningPhotos, docs, facilityImages } from "@/lib/assets";
 import { Photo } from "@/components/media";
 import { pages } from "@/lib/seo";
 
@@ -34,14 +34,7 @@ export default function ActionLearningPage() {
           {actionLearning.units.map((unit, i) => (
             <Reveal as="li" key={unit.name} delay={i * 60} className="bg-white">
               <Photo
-                img={
-                  [
-                    facilityImages.mtrtc[1],
-                    facilityImages.mtrtc[2],
-                    facilityImages.ashokLeyland,
-                    facilityImages.mtrtc[4],
-                  ][i]
-                }
+                img={actionLearningPhotos[i] ?? facilityImages.mtrtc[0]}
                 ratio="16/10"
                 sizes="(max-width: 768px) 100vw, 50vw"
                 className="w-full"

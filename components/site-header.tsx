@@ -75,8 +75,8 @@ export function SiteHeader() {
         Skip to content
       </a>
 
-      <div className="shell flex h-18 items-center justify-between gap-6">
-        <Link href="/" className="shrink-0" aria-label={`${org.shortName} home`}>
+      <div className="shell flex h-22 items-center justify-between gap-4 md:gap-6">
+        <Link href="/" className="min-w-0 shrink" aria-label={`${org.legalName} home`}>
           <Wordmark tone={inverted ? "light" : "dark"} compact />
         </Link>
 

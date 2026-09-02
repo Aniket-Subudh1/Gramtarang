@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { Reveal } from "@/components/reveal";
 import { ButtonLink, PageHeader, Section } from "@/components/ui";
 import { stories } from "@/lib/content";
-import { storyPortraits } from "@/lib/assets";
-import { Photo } from "@/components/media";
+import { campusGallery, storyPortraits } from "@/lib/assets";
+import { Photo, PhotoStrip } from "@/components/media";
 import { pages } from "@/lib/seo";
 
 export const metadata: Metadata = pages.stories;
@@ -16,6 +16,8 @@ export default function StoriesPage() {
         title="Success stories"
         lede="Placement rates are an average. These are the individual cases the average is made of, told as plainly as we can."
       />
+
+      <PhotoStrip images={campusGallery} />
 
       <Section tone="white">
         <ul className="divide-y divide-[--color-line]">

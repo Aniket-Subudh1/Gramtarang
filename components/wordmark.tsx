@@ -1,10 +1,10 @@
 import NextImage from "next/image";
 import { brand } from "@/lib/assets";
+import { org } from "@/lib/content";
 
 /**
- * The organisation's own logo. On a dark ground it sits on a light
- * tile, because the mark is coloured artwork on a transparent ground
- * and inverting it would misrepresent the brand.
+ * GTET lockup plus the legal company name. No backing tile — the
+ * artwork already has a dark badge and sits on both white and indigo.
  */
 export function Wordmark({
   tone = "dark",
@@ -13,42 +13,25 @@ export function Wordmark({
   tone?: "dark" | "light";
   compact?: boolean;
 }) {
-  const height = compact ? 34 : 40;
+  const height = compact ? 58 : 72;
 
   return (
-    <span className="flex items-center gap-3">
+    <span className="flex items-center gap-3 sm:gap-3.5">
+      <NextImage
+        src={brand.lockup.src}
+        alt=""
+        width={brand.lockup.w}
+        height={brand.lockup.h}
+        priority
+        style={{ height, width: "auto" }}
+      />
       <span
-        className={
-          tone === "light"
-            ? "flex items-center justify-center bg-white px-2 py-1.5"
-            : "flex items-center"
-        }
+        className={`flex max-w-[11.5rem] flex-col font-display font-semibold leading-[1.15] tracking-[-0.03em] sm:max-w-[15.5rem] ${
+          compact ? "text-[0.78rem] sm:text-[0.84rem]" : "text-[0.92rem]"
+        }`}
+        style={{ color: tone === "light" ? "#ffffff" : "#101625" }}
       >
-        <NextImage
-          src={brand.lockup.src}
-          alt={brand.lockup.alt}
-          width={brand.lockup.w}
-          height={brand.lockup.h}
-          priority
-          style={{ height, width: "auto" }}
-        />
-      </span>
-
-      <span className="hidden flex-col leading-none sm:flex">
-        <span
-          className={`font-display font-extrabold tracking-[-0.03em] ${
-            compact ? "text-[0.98rem]" : "text-[1.05rem]"
-          }`}
-          style={{ color: tone === "light" ? "#ffffff" : "#101625" }}
-        >
-          Gram Tarang
-        </span>
-        <span
-          className="mt-1 font-mono text-[0.5rem] uppercase tracking-[0.16em]"
-          style={{ color: tone === "light" ? "#b8c6e2" : "#8a93a6" }}
-        >
-          Employability Training
-        </span>
+        {org.legalName}
       </span>
     </span>
   );
