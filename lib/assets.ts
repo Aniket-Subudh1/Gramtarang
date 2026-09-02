@@ -377,6 +377,8 @@ export const partnerLogos: Record<string, Img> = {
   "mord-ddu-gky": { src: "/images/logos/ddu-gky.webp", w: 256, h: 120, alt: "MoRD — DDU-GKY" },
   nsdc: { src: "/images/logos/nsdc.webp", w: 252, h: 240, alt: "National Skill Development Corporation" },
   odisha: { src: "/images/logos/odisha.webp", w: 110, h: 120, alt: "Government of Odisha" },
+  assam: { src: "/images/logos/assam.webp", w: 190, h: 240, alt: "Government of Assam" },
+  punjab: { src: "/images/logos/punjab.webp", w: 213, h: 240, alt: "Government of Punjab" },
   "andhra-pradesh": { src: "/images/logos/andhra-pradesh.webp", w: 110, h: 120, alt: "Government of Andhra Pradesh" },
   jharkhand: { src: "/images/logos/jharkhand.webp", w: 110, h: 120, alt: "Government of Jharkhand" },
   chhattisgarh: { src: "/images/logos/chhattisgarh.webp", w: 120, h: 120, alt: "Government of Chhattisgarh" },
@@ -387,7 +389,14 @@ export const partnerLogos: Record<string, Img> = {
   yamaha: { src: "/images/logos/yamaha.webp", w: 267, h: 120, alt: "Yamaha" },
   "volvo-eicher": { src: "/images/logos/volvo-eicher.webp", w: 120, h: 120, alt: "Volvo Eicher" },
   "cafe-coffee-day": { src: "/images/logos/cafe-coffee-day.webp", w: 160, h: 120, alt: "Café Coffee Day" },
+  "gap-pace": { src: "/images/logos/gap-pace.webp", w: 266, h: 240, alt: "Gap Inc. P.A.C.E." },
   "godrej-boyce": { src: "/images/logos/godrej-boyce.webp", w: 280, h: 120, alt: "Godrej & Boyce" },
+  "garment-export-industry": {
+    src: "/images/logos/garment-export.webp",
+    w: 1161,
+    h: 240,
+    alt: "Apparel Export Promotion Council",
+  },
   seda: { src: "/images/logos/seda.webp", w: 352, h: 120, alt: "SEDA" },
 };
 
